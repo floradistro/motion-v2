@@ -1,26 +1,279 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: #050505;
+  --color-foreground: #fafafa;
+  --color-cyan: #22d3ee;
+  --color-cyan-dark: #06b6d4;
+  --color-cyan-light: #67e8f9;
+  --color-muted: #a1a1aa;
+  --color-surface: #111111;
+  --color-surface-light: #1a1a1a;
+  --color-border: #1f1f1f;
+  --color-mint: #34d399;
+  --color-mango: #fbbf24;
+  --color-bluerazz: #60a5fa;
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #050505;
+  color: #fafafa;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.3);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* ── Gradients & effects ─────────────────────────────── */
+
+.text-gradient {
+  background: linear-gradient(135deg, #22d3ee, #67e8f9, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass {
+  background: rgba(17, 17, 17, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-strong {
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(40px) saturate(1.3);
+  -webkit-backdrop-filter: blur(40px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glow-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #22d3ee, transparent);
+}
+
+/* ── Section divider ─────────────────────────────────── */
+
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 20%,
+    rgba(255, 255, 255, 0.06) 80%,
+    transparent 100%
+  );
+}
+
+/* ── Illuminate border — subtle glow on hover ────────── */
+
+.illuminate {
+  position: relative;
+  overflow: hidden;
+}
+.illuminate::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: conic-gradient(
+    from var(--illuminate-angle, 0deg),
+    transparent 0%,
+    rgba(34, 211, 238, 0.4) 10%,
+    transparent 20%
+  );
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  border-radius: inherit;
+  z-index: -1;
+}
+.illuminate:hover::before {
+  opacity: 1;
+}
+.illuminate::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: inherit;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/* ── Aurora ambient glow ─────────────────────────────── */
+
+@keyframes aurora {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 0.4;
+  }
+  33% {
+    transform: translate(30px, -20px) rotate(120deg) scale(1.1);
+    opacity: 0.6;
+  }
+  66% {
+    transform: translate(-20px, 15px) rotate(240deg) scale(0.95);
+    opacity: 0.35;
+  }
+}
+.aurora-orb {
+  animation: aurora 12s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+.aurora-orb-2 {
+  animation: aurora 15s ease-in-out infinite reverse;
+  animation-delay: -5s;
+  will-change: transform, opacity;
+}
+
+/* ── Molecule glow pulse ─────────────────────────────── */
+
+@keyframes molecule-pulse {
+  0%,
+  100% {
+    opacity: 0.06;
+  }
+  50% {
+    opacity: 0.18;
+  }
+}
+.animate-molecule-pulse {
+  animation: molecule-pulse 3s ease-in-out infinite;
+}
+
+/* ── Number glow — subtle text-shadow on stat numbers ── */
+
+.number-glow {
+  text-shadow: 0 0 40px rgba(34, 211, 238, 0.15),
+    0 0 80px rgba(34, 211, 238, 0.05);
+}
+
+/* ── Card shimmer — sweeping highlight on hover ──────── */
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+  }
+}
+.card-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.03) 45%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.03) 55%,
+    transparent 60%
+  );
+  transform: translateX(-100%) skewX(-15deg);
+  pointer-events: none;
+}
+.card-shimmer:hover::after {
+  animation: shimmer 0.8s ease-out;
+}
+
+/* ── Smooth image zoom ───────────────────────────────── */
+
+.img-zoom {
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.group:hover .img-zoom {
+  transform: scale(1.04);
+}
+
+/* ── Scroll-driven fade-in (progressive enhancement) ── */
+
+@supports (animation-timeline: view()) {
+  .scroll-reveal {
+    animation: scroll-fade-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 30%;
+  }
+  @keyframes scroll-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* ── Button press effect ─────────────────────────────── */
+
+.btn-press {
+  transition: transform 0.15s ease, box-shadow 0.3s ease;
+}
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* ── Product card hover lift ─────────────────────────── */
+
+.card-lift {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Marquee horizontal scroll ─────────────────────── */
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+  will-change: transform;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ── Hide scrollbar (carousel) ─────────────────────── */
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
