@@ -53,6 +53,7 @@ interface CartState {
   cart: Cart | null;
   loading: boolean;
   itemCount: number;
+  drawerOpen: boolean;
 }
 
 interface CartActions {
@@ -62,6 +63,9 @@ interface CartActions {
   refreshCart: () => Promise<void>;
   clearCart: () => void;
   initialize: () => void;
+  openDrawer: () => void;
+  closeDrawer: () => void;
+  toggleDrawer: () => void;
 }
 
 export type CartStore = CartState & CartActions;
@@ -70,6 +74,11 @@ export const useCartStore = create<CartStore>((set, get) => ({
   cart: null,
   loading: false,
   itemCount: 0,
+  drawerOpen: false,
+
+  openDrawer: () => set({ drawerOpen: true }),
+  closeDrawer: () => set({ drawerOpen: false }),
+  toggleDrawer: () => set((s) => ({ drawerOpen: !s.drawerOpen })),
 
   initialize: () => {
     const cartId = getCartId();
@@ -176,6 +185,9 @@ export const useCartStore = create<CartStore>((set, get) => ({
         cart_item_count: cart?.item_count ?? 0,
         cart_total: cart?.total ?? 0,
       });
+
+      // Auto-open cart drawer
+      set({ drawerOpen: true });
     } finally {
       set({ loading: false });
     }

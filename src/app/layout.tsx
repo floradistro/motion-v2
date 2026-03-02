@@ -4,6 +4,7 @@ import { CartProvider } from "@/lib/cart-context";
 import AuthInitializer from "@/components/AuthInitializer";
 import TelemetryProvider from "@/components/TelemetryProvider";
 import PageTransition from "@/components/ui/PageTransition";
+import CartDrawer from "@/components/CartDrawer";
 import "./globals.css";
 
 const inter = Inter({
@@ -42,6 +43,7 @@ export default function RootLayout({
         <TelemetryProvider>
           <CartProvider>
             <AuthInitializer />
+            <CartDrawer />
             <PageTransition>
               {children}
             </PageTransition>

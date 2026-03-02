@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/lib/cart-context";
+import { useCartStore } from "@/stores/cart-store";
 import { useAuth } from "@/hooks/use-auth";
 import { selectIsAuthenticated } from "@/stores/auth-store";
 
@@ -13,22 +14,33 @@ const LOGO_URL =
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { itemCount } = useCart();
+  const openDrawer = useCartStore((s) => s.openDrawer);
   const isAuthed = useAuth(selectIsAuthenticated);
+  const lastY = useRef(0);
+  const { scrollY } = useScroll();
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  useMotionValueEvent(scrollY, "change", (y) => {
+    const diff = y - lastY.current;
+    setScrolled(y > 50);
+    // Only hide after scrolling down past 80px, and only if not at the very top
+    if (y < 80) {
+      setHidden(false);
+    } else if (diff > 5) {
+      setHidden(true);
+    } else if (diff < -5) {
+      setHidden(false);
+    }
+    lastY.current = y;
+  });
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      animate={{ y: hidden && !mobileOpen ? "-100%" : "0%" }}
+      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${
         scrolled
           ? "bg-[#050505]/80 backdrop-blur-xl border-b border-white/[0.04]"
           : "bg-transparent"
@@ -93,8 +105,8 @@ export default function Navbar() {
             </Link>
 
             {/* Cart */}
-            <Link
-              href="/cart"
+            <button
+              onClick={openDrawer}
               className="relative text-muted hover:text-white transition-colors duration-300"
             >
               <svg
@@ -115,7 +127,7 @@ export default function Navbar() {
                   {itemCount}
                 </span>
               )}
-            </Link>
+            </button>
 
             <Link
               href="/shop"
@@ -127,7 +139,7 @@ export default function Navbar() {
 
           {/* Mobile: Cart + Toggle */}
           <div className="flex md:hidden items-center gap-5">
-            <Link href="/cart" className="relative text-muted hover:text-white transition-colors">
+            <button onClick={openDrawer} className="relative text-muted hover:text-white transition-colors">
               <svg
                 className="w-5 h-5"
                 fill="none"
@@ -146,7 +158,7 @@ export default function Navbar() {
                   {itemCount}
                 </span>
               )}
-            </Link>
+            </button>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="relative w-8 h-8 flex flex-col items-center justify-center gap-1.5"
