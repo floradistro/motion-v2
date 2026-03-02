@@ -44,19 +44,19 @@ export default function ProductShowcase() {
   const products = useProductStore((s) => s.products);
 
   return (
-    <section id="shop" className="relative py-32 lg:py-48">
+    <section id="shop" className="relative py-16 sm:py-24 lg:py-36">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-24 lg:mb-32"
+          className="text-center mb-12 sm:mb-16 lg:mb-24"
         >
           <p className="text-cyan text-[13px] tracking-[0.4em] uppercase mb-6">
             The Lineup
           </p>
-          <h2 className="text-5xl sm:text-6xl lg:text-8xl font-extralight tracking-tight text-white">
+          <h2 className="text-6xl sm:text-7xl lg:text-8xl font-light tracking-tight text-white">
             Grab what you need.
           </h2>
         </motion.div>
@@ -106,7 +106,7 @@ export default function ProductShowcase() {
                     {modelUrl ? (
                       <div className="relative z-10 w-full h-full">
                         <ModelViewer src={modelUrl} alt={product.name} />
-                        <div className="absolute bottom-3 left-3 text-[10px] text-muted/40 tracking-wider uppercase pointer-events-none">
+                        <div className="absolute bottom-3 left-3 text-[10px] text-white/40 tracking-wider uppercase pointer-events-none">
                           Drag to rotate
                         </div>
                       </div>
@@ -134,7 +134,7 @@ export default function ProductShowcase() {
                     <h3 className="text-xl font-light text-white tracking-wide mb-2">
                       {product.name}
                     </h3>
-                    <p className="text-[13px] text-muted/60 leading-relaxed line-clamp-2 mb-6">
+                    <p className="text-[13px] text-white/60 leading-relaxed line-clamp-2 mb-6">
                       {product.short_description || product.description}
                     </p>
 
@@ -162,7 +162,7 @@ export default function ProductShowcase() {
         <div className="text-center mt-16">
           <Link
             href="/shop"
-            className="inline-block px-10 py-4 text-[12px] tracking-[0.2em] uppercase border border-white/10 text-muted hover:text-white hover:border-white/30 transition-all duration-300 font-medium"
+            className="inline-block px-10 py-4 text-[12px] tracking-[0.2em] uppercase border border-white/10 text-white/60 hover:text-white hover:border-white/30 transition-all duration-300 font-medium"
           >
             View All Products
           </Link>

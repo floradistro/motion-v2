@@ -48,10 +48,10 @@ export default function ShopContent() {
           <p className="text-cyan text-[13px] tracking-[0.4em] uppercase mb-6">
             Shop
           </p>
-          <h1 className="text-5xl sm:text-6xl lg:text-8xl font-extralight tracking-tight text-white mb-6">
+          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-light tracking-tight text-white mb-6">
             Unlock Your Peak Performance.
           </h1>
-          <p className="text-lg text-muted/60 font-light max-w-2xl mx-auto">
+          <p className="text-lg text-white/70 font-light max-w-2xl mx-auto">
             Engineered for the elite. Experience sustained focus, razor-sharp
             clarity, and clean energy. Optimize your cognitive output.
           </p>
@@ -69,7 +69,7 @@ export default function ShopContent() {
               className={`px-6 py-3 text-[12px] tracking-[0.2em] uppercase transition-all duration-300 border ${
                 filter === "all"
                   ? "bg-white text-black border-white"
-                  : "bg-transparent text-muted border-white/10 hover:border-white/30 hover:text-white"
+                  : "bg-transparent text-white/60 border-white/10 hover:border-white/30 hover:text-white"
               }`}
             >
               All
@@ -81,7 +81,7 @@ export default function ShopContent() {
                 className={`px-6 py-3 text-[12px] tracking-[0.2em] uppercase transition-all duration-300 border ${
                   filter === cat.slug
                     ? "bg-white text-black border-white"
-                    : "bg-transparent text-muted border-white/10 hover:border-white/30 hover:text-white"
+                    : "bg-transparent text-white/60 border-white/10 hover:border-white/30 hover:text-white"
                 }`}
               >
                 {cat.name}
@@ -94,7 +94,7 @@ export default function ShopContent() {
           key={filter}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-center text-sm text-muted/40 mt-6 font-light"
+          className="text-center text-sm text-white/50 mt-6 font-light"
         >
           {filtered.length} {filtered.length === 1 ? "product" : "products"}
         </motion.p>
@@ -134,7 +134,7 @@ export default function ShopContent() {
                   )}
 
                   {product.custom_fields?.badge && (
-                    <div className="absolute top-4 left-4 sm:top-5 sm:left-5 z-10 px-2.5 py-1 sm:px-3 sm:py-1.5 text-[9px] sm:text-[10px] tracking-[0.15em] uppercase text-muted/60 bg-white/[0.04] border border-white/[0.06]">
+                    <div className="absolute top-4 left-4 sm:top-5 sm:left-5 z-10 px-2.5 py-1 sm:px-3 sm:py-1.5 text-[9px] sm:text-[10px] tracking-[0.15em] uppercase text-white/60 bg-white/[0.04] border border-white/[0.06]">
                       {product.custom_fields.badge}
                     </div>
                   )}
@@ -173,7 +173,7 @@ export default function ShopContent() {
                     <h3 className="text-base sm:text-lg font-light text-white tracking-wide mb-1 sm:mb-2">
                       {product.name}
                     </h3>
-                    <p className="text-[12px] sm:text-[13px] text-muted/50 leading-relaxed line-clamp-2 mb-4 sm:mb-5 hidden sm:block">
+                    <p className="text-[12px] sm:text-[13px] text-white/60 leading-relaxed line-clamp-2 mb-4 sm:mb-5 hidden sm:block">
                       {product.custom_fields?.tagline ||
                         product.short_description}
                     </p>
@@ -185,20 +185,20 @@ export default function ShopContent() {
                         </span>
                       )}
                       {tier?.sale_price && tier?.regular_price && tier.regular_price > tier.sale_price ? (
-                        <span className="text-xs sm:text-sm text-muted/30 line-through">
+                        <span className="text-xs sm:text-sm text-white/40 line-through">
                           ${tier.regular_price}
                         </span>
                       ) : (
                         comparePrice &&
                         tier &&
                         comparePrice > tier.price && (
-                          <span className="text-xs sm:text-sm text-muted/30 line-through">
+                          <span className="text-xs sm:text-sm text-white/40 line-through">
                             ${comparePrice}
                           </span>
                         )
                       )}
                       {bundleTier && (
-                        <span className="text-[10px] sm:text-[11px] tracking-wider text-cyan/60 uppercase ml-auto hidden sm:inline">
+                        <span className="text-[10px] sm:text-[11px] tracking-wider text-cyan/80 uppercase ml-auto hidden sm:inline">
                           {bundleTier.label} ${bundleTier.sale_price ?? bundleTier.price}
                         </span>
                       )}

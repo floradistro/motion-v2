@@ -51,7 +51,7 @@ function ReviewCard({ review, accent }: { review: Review; accent: string }) {
         </h4>
       )}
 
-      <p className="text-[13px] text-muted/50 font-light leading-relaxed line-clamp-4">
+      <p className="text-[13px] text-white/60 font-light leading-relaxed line-clamp-4">
         {review.review_text}
       </p>
 
@@ -61,7 +61,7 @@ function ReviewCard({ review, accent }: { review: Review; accent: string }) {
             {name}
           </span>
           {role && (
-            <span className="text-[11px] text-muted/30 ml-2">{role}</span>
+            <span className="text-[11px] text-white/40 ml-2">{role}</span>
           )}
         </div>
         {review.verified_purchase && (
@@ -76,16 +76,16 @@ function ReviewCard({ review, accent }: { review: Review; accent: string }) {
             Verified
           </span>
         )}
-        <span className="flex-shrink-0 text-[11px] text-muted/25">{date}</span>
+        <span className="flex-shrink-0 text-[11px] text-white/40">{date}</span>
       </div>
 
       {/* Helpful count */}
       {review.helpful_count > 0 && (
         <div className="mt-3 flex items-center gap-1.5">
-          <svg className="w-3 h-3 text-muted/20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <svg className="w-3 h-3 text-white/35" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75 2.25 2.25 0 012.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904m7.594 0H5.904m0 0a48.7 48.7 0 00-.024-.006A48.4 48.4 0 015.9 13.56M3.75 21V18" />
           </svg>
-          <span className="text-[10px] text-muted/20">
+          <span className="text-[10px] text-white/35">
             {review.helpful_count} found helpful
           </span>
         </div>
@@ -242,18 +242,18 @@ export default function ReviewCarousel({
   if (reviews.length === 0) {
     return (
       <div className="py-8">
-        <p className="text-[13px] text-muted/30 font-light mb-8">No reviews yet. Be the first!</p>
+        <p className="text-[13px] text-white/50 font-light mb-8">No reviews yet. Be the first!</p>
 
         {/* Review form */}
         <div className="pt-8 border-t border-white/[0.04]">
           {!user ? (
             <div className="text-center py-8">
-              <p className="text-[13px] text-muted/40 font-light mb-3">
+              <p className="text-[13px] text-white/50 font-light mb-3">
                 Share your experience with this product
               </p>
               <Link
                 href="/account"
-                className="inline-block px-6 py-3 text-[11px] tracking-[0.2em] uppercase font-medium border border-white/[0.08] text-muted/60 hover:text-white hover:border-white/20 transition-all duration-300"
+                className="inline-block px-6 py-3 text-[11px] tracking-[0.2em] uppercase font-medium border border-white/[0.08] text-white/60 hover:text-white hover:border-white/20 transition-all duration-300"
               >
                 Sign in to leave a review
               </Link>
@@ -261,14 +261,14 @@ export default function ReviewCarousel({
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-[10px] tracking-[0.3em] uppercase text-muted/40 mb-3 font-medium">
+                <label className="block text-[10px] tracking-[0.3em] uppercase text-white/50 mb-3 font-medium">
                   Your Rating
                 </label>
                 <Stars rating={formRating} accent={accent} size={22} interactive onRate={setFormRating} />
               </div>
               <div>
-                <label className="block text-[10px] tracking-[0.3em] uppercase text-muted/40 mb-2 font-medium">
-                  Title <span className="text-muted/20">(optional)</span>
+                <label className="block text-[10px] tracking-[0.3em] uppercase text-white/50 mb-2 font-medium">
+                  Title <span className="text-white/30">(optional)</span>
                 </label>
                 <input
                   type="text"
@@ -279,7 +279,7 @@ export default function ReviewCarousel({
                 />
               </div>
               <div>
-                <label className="block text-[10px] tracking-[0.3em] uppercase text-muted/40 mb-2 font-medium">
+                <label className="block text-[10px] tracking-[0.3em] uppercase text-white/50 mb-2 font-medium">
                   Your Review
                 </label>
                 <textarea
@@ -311,7 +311,7 @@ export default function ReviewCarousel({
       {/* Header with average */}
       <div className="flex items-center gap-4 mb-8">
         <Stars rating={Math.round(avgRating)} accent={accent} size={18} />
-        <span className="text-[13px] text-muted/40 font-light">
+        <span className="text-[13px] text-white/50 font-light">
           {avgRating.toFixed(1)} out of 5 ({reviews.length} review{reviews.length !== 1 ? "s" : ""})
         </span>
       </div>
@@ -327,7 +327,7 @@ export default function ReviewCarousel({
           <>
             <button
               onClick={() => setCurrentIndex((p) => (p <= 0 ? reviews.length - 1 : p - 1))}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-8 h-8 flex items-center justify-center bg-white/[0.04] border border-white/[0.08] text-muted/50 hover:text-white hover:border-white/20 transition-all"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-8 h-8 flex items-center justify-center bg-white/[0.04] border border-white/[0.08] text-white/50 hover:text-white hover:border-white/20 transition-all"
               aria-label="Previous review"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -336,7 +336,7 @@ export default function ReviewCarousel({
             </button>
             <button
               onClick={() => setCurrentIndex((p) => (p >= reviews.length - 1 ? 0 : p + 1))}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-8 h-8 flex items-center justify-center bg-white/[0.04] border border-white/[0.08] text-muted/50 hover:text-white hover:border-white/20 transition-all"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-8 h-8 flex items-center justify-center bg-white/[0.04] border border-white/[0.08] text-white/50 hover:text-white hover:border-white/20 transition-all"
               aria-label="Next review"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -378,7 +378,7 @@ export default function ReviewCarousel({
 
         {/* Count indicator for many reviews */}
         {reviews.length > 20 && (
-          <p className="text-center text-[11px] text-muted/25 mt-4">
+          <p className="text-center text-[11px] text-white/40 mt-4">
             {currentIndex + 1} of {reviews.length}
           </p>
         )}
@@ -388,12 +388,12 @@ export default function ReviewCarousel({
       <div className="mt-12 pt-8 border-t border-white/[0.04]">
         {!user ? (
           <div className="text-center py-8">
-            <p className="text-[13px] text-muted/40 font-light mb-3">
+            <p className="text-[13px] text-white/50 font-light mb-3">
               Share your experience with this product
             </p>
             <Link
               href="/account"
-              className="inline-block px-6 py-3 text-[11px] tracking-[0.2em] uppercase font-medium border border-white/[0.08] text-muted/60 hover:text-white hover:border-white/20 transition-all duration-300"
+              className="inline-block px-6 py-3 text-[11px] tracking-[0.2em] uppercase font-medium border border-white/[0.08] text-white/60 hover:text-white hover:border-white/20 transition-all duration-300"
             >
               Sign in to leave a review
             </Link>
@@ -411,7 +411,7 @@ export default function ReviewCarousel({
         ) : (
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-[10px] tracking-[0.3em] uppercase text-muted/40 mb-3 font-medium">
+              <label className="block text-[10px] tracking-[0.3em] uppercase text-white/50 mb-3 font-medium">
                 Your Rating
               </label>
               <Stars
@@ -424,8 +424,8 @@ export default function ReviewCarousel({
             </div>
 
             <div>
-              <label className="block text-[10px] tracking-[0.3em] uppercase text-muted/40 mb-2 font-medium">
-                Title <span className="text-muted/20">(optional)</span>
+              <label className="block text-[10px] tracking-[0.3em] uppercase text-white/50 mb-2 font-medium">
+                Title <span className="text-white/30">(optional)</span>
               </label>
               <input
                 type="text"
@@ -437,7 +437,7 @@ export default function ReviewCarousel({
             </div>
 
             <div>
-              <label className="block text-[10px] tracking-[0.3em] uppercase text-muted/40 mb-2 font-medium">
+              <label className="block text-[10px] tracking-[0.3em] uppercase text-white/50 mb-2 font-medium">
                 Your Review
               </label>
               <textarea

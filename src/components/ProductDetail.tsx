@@ -126,16 +126,16 @@ export default function ProductDetail({
     <main className="min-h-screen bg-background pt-28 lg:pt-36 pb-24">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* ── Breadcrumb ───────────────────────────────────── */}
-        <nav className="flex items-center gap-2 text-[12px] text-muted/40 mb-12">
+        <nav className="flex items-center gap-2 text-[12px] text-white/50 mb-12">
           <Link href="/" className="hover:text-white transition-colors">
             Home
           </Link>
-          <span className="text-muted/20">/</span>
+          <span className="text-white/35">/</span>
           <Link href="/shop" className="hover:text-white transition-colors">
             Shop
           </Link>
-          <span className="text-muted/20">/</span>
-          <span className="text-muted/60">{product.name}</span>
+          <span className="text-white/35">/</span>
+          <span className="text-white/70">{product.name}</span>
         </nav>
 
         {/* ── Product Hero ─────────────────────────────────── */}
@@ -156,7 +156,7 @@ export default function ProductDetail({
                     className={`px-5 py-2.5 text-[11px] tracking-[0.2em] uppercase font-medium border transition-all duration-300 ${
                       galleryView === view
                         ? "bg-white/[0.06] border-white/15 text-white"
-                        : "bg-transparent border-white/[0.04] text-muted/40 hover:text-muted/70 hover:border-white/[0.08]"
+                        : "bg-transparent border-white/[0.04] text-white/50 hover:text-white/75 hover:border-white/[0.08]"
                     }`}
                   >
                     {view === "3d" ? "3D View" : "Photos"}
@@ -174,7 +174,7 @@ export default function ProductDetail({
                   autoRotate
                   cameraControls
                 />
-                <div className="absolute bottom-4 left-4 text-[10px] text-muted/30 tracking-wider uppercase pointer-events-none">
+                <div className="absolute bottom-4 left-4 text-[10px] text-white/45 tracking-wider uppercase pointer-events-none">
                   Drag to rotate
                 </div>
               </div>
@@ -221,7 +221,7 @@ export default function ProductDetail({
 
                   {/* Image counter */}
                   {allImages.length > 1 && (
-                    <div className="absolute bottom-4 right-4 text-[10px] tracking-[0.15em] text-muted/30 font-mono">
+                    <div className="absolute bottom-4 right-4 text-[10px] tracking-[0.15em] text-white/45 font-mono">
                       {selectedImage + 1}/{allImages.length}
                     </div>
                   )}
@@ -278,7 +278,7 @@ export default function ProductDetail({
             {/* Category + Badge */}
             <div className="flex items-center gap-3 mb-5">
               {product.category && (
-                <span className="text-[11px] tracking-[0.25em] uppercase text-muted/40">
+                <span className="text-[11px] tracking-[0.25em] uppercase text-white/50">
                   {product.category.name}
                 </span>
               )}
@@ -297,13 +297,13 @@ export default function ProductDetail({
             </div>
 
             {/* Name */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-extralight tracking-tight text-white leading-[1.05] mb-4">
+            <h1 className="text-5xl sm:text-5xl lg:text-[56px] font-light tracking-tight text-white leading-[1.05] mb-4">
               {product.name}
             </h1>
 
             {/* Tagline */}
             {product.custom_fields?.tagline && (
-              <p className="text-[15px] text-muted/45 font-light mb-10 max-w-md leading-relaxed">
+              <p className="text-[15px] text-white/55 font-light mb-10 max-w-md leading-relaxed">
                 {product.custom_fields.tagline}
               </p>
             )}
@@ -317,14 +317,14 @@ export default function ProductDetail({
                 ${selectedTier.sale_price ?? selectedTier.price}
               </span>
               {selectedTier.sale_price && selectedTier.regular_price && selectedTier.regular_price > selectedTier.sale_price ? (
-                <span className="text-lg text-muted/25 line-through">
+                <span className="text-lg text-white/40 line-through">
                   ${selectedTier.regular_price}
                 </span>
               ) : (
                 comparePrice &&
                 selectedTier.quantity === 1 &&
                 comparePrice > selectedTier.price && (
-                  <span className="text-lg text-muted/25 line-through">
+                  <span className="text-lg text-white/40 line-through">
                     ${comparePrice}
                   </span>
                 )
@@ -334,7 +334,7 @@ export default function ProductDetail({
                   Save {Math.round(((selectedTier.regular_price - selectedTier.sale_price) / selectedTier.regular_price) * 100)}%
                 </span>
               )}
-              <span className="text-[11px] tracking-[0.2em] text-muted/35 uppercase">
+              <span className="text-[11px] tracking-[0.2em] text-white/50 uppercase">
                 / {selectedTier.label}
               </span>
             </div>
@@ -342,7 +342,7 @@ export default function ProductDetail({
             {/* Tier selector */}
             {tiers.length > 1 && (
               <div className="mb-10">
-                <p className="text-[10px] tracking-[0.3em] uppercase text-muted/40 mb-4 font-medium">
+                <p className="text-[10px] tracking-[0.3em] uppercase text-white/50 mb-4 font-medium">
                   Select Size
                 </p>
                 <div className="flex gap-3">
@@ -370,15 +370,15 @@ export default function ProductDetail({
                         <span className="relative block text-white text-sm font-medium">
                           {tier.label}
                         </span>
-                        <span className="relative block text-muted/45 text-[13px] mt-1">
+                        <span className="relative block text-white/55 text-[13px] mt-1">
                           ${tier.sale_price ?? tier.price}
                           {tier.sale_price && tier.regular_price && (
-                            <span className="text-muted/25 line-through ml-1.5">
+                            <span className="text-white/40 line-through ml-1.5">
                               ${tier.regular_price}
                             </span>
                           )}
                           {tier.quantity > 1 && (
-                            <span className="text-muted/25">
+                            <span className="text-white/40">
                               {" "}
                               / {tier.quantity} {tier.unit}
                             </span>
@@ -429,7 +429,7 @@ export default function ProductDetail({
 
             <Link
               href="/cart"
-              className="block w-full py-4 mt-3 text-[11px] tracking-[0.2em] uppercase text-center border border-white/[0.06] text-muted/60 hover:text-white hover:border-white/20 transition-all duration-400"
+              className="block w-full py-4 mt-3 text-[11px] tracking-[0.2em] uppercase text-center border border-white/[0.06] text-white/70 hover:text-white hover:border-white/20 transition-all duration-400"
             >
               View Cart
             </Link>
@@ -443,7 +443,7 @@ export default function ProductDetail({
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.3 + i * 0.06 }}
-                    className="flex items-center gap-3 text-[13px] text-muted/55 font-light"
+                    className="flex items-center gap-3 text-[13px] text-white/65 font-light"
                   >
                     <svg
                       className="w-3.5 h-3.5 flex-shrink-0"
@@ -547,7 +547,7 @@ export default function ProductDetail({
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 0.4 }}
-                  className="text-5xl sm:text-6xl lg:text-8xl xl:text-9xl font-extralight tracking-tight text-white leading-[0.95] max-w-4xl"
+                  className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-light tracking-tight text-white leading-[0.95] max-w-4xl"
                 >
                   {lifestyleHero.tagline}
                 </motion.h2>
@@ -583,7 +583,7 @@ export default function ProductDetail({
 
         {/* ── Details section ──────────────────────────────── */}
         <div className="mt-28 lg:mt-40">
-          <div className="section-divider mb-20 lg:mb-28" />
+          <div className="section-divider mb-10 sm:mb-14 lg:mb-28" />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
             {/* Description — Tabbed interface */}
@@ -606,7 +606,7 @@ export default function ProductDetail({
                     className={`relative px-5 py-2.5 text-[11px] tracking-[0.2em] uppercase font-medium border transition-all duration-300 ${
                       descTab === key
                         ? "bg-white/[0.06] border-white/15 text-white"
-                        : "bg-transparent border-white/[0.04] text-muted/40 hover:text-muted/70 hover:border-white/[0.08]"
+                        : "bg-transparent border-white/[0.04] text-white/50 hover:text-white/75 hover:border-white/[0.08]"
                     }`}
                   >
                     {label}
@@ -637,7 +637,7 @@ export default function ProductDetail({
                       <div className="p-6 bg-white/[0.02] border border-white/[0.04] mb-8">
                         {product.custom_fields?.serving_size && (
                           <div className="flex items-center gap-3 mb-3">
-                            <span className="text-[10px] tracking-[0.2em] uppercase text-muted/35 font-medium">Serving Size</span>
+                            <span className="text-[10px] tracking-[0.2em] uppercase text-white/50 font-medium">Serving Size</span>
                             <span className="text-[13px] text-white/70 font-light">{product.custom_fields.serving_size}</span>
                           </div>
                         )}
@@ -669,8 +669,8 @@ export default function ProductDetail({
                             key={i}
                             className={`font-light leading-[1.85] ${
                               i === 0
-                                ? "text-[16px] text-muted/65"
-                                : "text-[15px] text-muted/50"
+                                ? "text-[16px] text-white/70"
+                                : "text-[15px] text-white/60"
                             }`}
                           >
                             {para}
@@ -704,7 +704,7 @@ export default function ProductDetail({
                           {/* Name + formula */}
                           <div className="flex-1 min-w-0">
                             <p className="text-[14px] text-white font-light">{ing.name}</p>
-                            <p className="text-[10px] text-muted/25 font-mono tracking-wider">{ing.formula}</p>
+                            <p className="text-[10px] text-white/40 font-mono tracking-wider">{ing.formula}</p>
                           </div>
                           {/* Dose */}
                           <span
@@ -732,10 +732,10 @@ export default function ProductDetail({
                         className="absolute top-0 left-0 right-0 h-[1px] opacity-30"
                         style={{ backgroundColor: accent }}
                       />
-                      <h3 className="text-[10px] tracking-[0.3em] uppercase text-muted/40 mb-4 font-medium">
+                      <h3 className="text-[10px] tracking-[0.3em] uppercase text-white/50 mb-4 font-medium">
                         Usage Instructions
                       </h3>
-                      <p className="text-[14px] text-muted/55 font-light leading-[1.8]">
+                      <p className="text-[14px] text-white/65 font-light leading-[1.8]">
                         {usage || "Follow the suggested serving size on the packaging. Consult your healthcare provider if you have any concerns."}
                       </p>
                     </div>
@@ -761,7 +761,7 @@ export default function ProductDetail({
                     className="w-1 h-1 rounded-full"
                     style={{ backgroundColor: accent }}
                   />
-                  <h2 className="text-[11px] tracking-[0.3em] uppercase text-muted/50 font-medium">
+                  <h2 className="text-[11px] tracking-[0.3em] uppercase text-white/60 font-medium">
                     Benefits
                   </h2>
                 </div>
@@ -792,7 +792,7 @@ export default function ProductDetail({
                           <h3 className="text-white text-[15px] font-medium mb-2 tracking-wide">
                             {b.title}
                           </h3>
-                          <p className="text-[13px] text-muted/45 font-light leading-relaxed">
+                          <p className="text-[13px] text-white/55 font-light leading-relaxed">
                             {b.description}
                           </p>
                         </div>
@@ -807,7 +807,7 @@ export default function ProductDetail({
 
         {/* ── What's Inside — Molecule Section ────────────── */}
         <section className="mt-28 lg:mt-40">
-          <div className="section-divider mb-20 lg:mb-28" />
+          <div className="section-divider mb-10 sm:mb-14 lg:mb-28" />
 
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -822,7 +822,7 @@ export default function ProductDetail({
             >
               The Formula
             </p>
-            <h2 className="text-4xl sm:text-5xl lg:text-7xl font-extralight tracking-tight text-white">
+            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-light tracking-tight text-white">
               What&apos;s inside.
             </h2>
           </motion.div>
@@ -837,7 +837,7 @@ export default function ProductDetail({
           >
             <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white/[0.015] border border-white/[0.04]">
               {/* Left — large molecule render */}
-              <div className="relative flex items-center justify-center py-16 lg:py-24 px-8 overflow-hidden">
+              <div className="relative flex items-center justify-center py-14 sm:py-20 lg:py-24 px-8 overflow-hidden">
                 {/* Ambient glow */}
                 <div
                   className="absolute inset-0 opacity-30"
@@ -872,7 +872,7 @@ export default function ProductDetail({
               </div>
 
               {/* Right — content */}
-              <div className="relative flex flex-col justify-center px-10 lg:px-16 py-16 lg:py-24 border-t lg:border-t-0 lg:border-l border-white/[0.04]">
+              <div className="relative flex flex-col justify-center px-10 lg:px-16 py-14 sm:py-20 lg:py-24 border-t lg:border-t-0 lg:border-l border-white/[0.04]">
                 <div className="flex items-center gap-3 mb-4">
                   <span
                     className="text-[11px] tracking-[0.2em] uppercase font-medium px-3 py-1.5"
@@ -884,15 +884,15 @@ export default function ProductDetail({
                   >
                     Primary
                   </span>
-                  <span className="text-[11px] text-muted/30 font-mono tracking-wider">
+                  <span className="text-[11px] text-white/45 font-mono tracking-wider">
                     C\u2088H\u2081\u2080N\u2084O\u2082
                   </span>
                 </div>
 
-                <h3 className="text-3xl lg:text-4xl font-extralight text-white tracking-tight mb-3">
+                <h3 className="text-4xl lg:text-4xl font-light text-white tracking-tight mb-3">
                   Caffeine + L-Theanine
                 </h3>
-                <p className="text-[14px] text-muted/40 font-light mb-8 leading-relaxed max-w-md">
+                <p className="text-[14px] text-white/50 font-light mb-8 leading-relaxed max-w-md">
                   The 1:2 ratio that started it all. Clean energy without the
                   crash. Caffeine locks you in while Theanine smooths out the
                   edges.
@@ -903,7 +903,7 @@ export default function ProductDetail({
                     <p className="text-2xl font-light text-white number-glow">
                       100mg
                     </p>
-                    <p className="text-[10px] text-muted/30 mt-1 uppercase tracking-[0.2em]">
+                    <p className="text-[10px] text-white/45 mt-1 uppercase tracking-[0.2em]">
                       Caffeine
                     </p>
                   </div>
@@ -912,7 +912,7 @@ export default function ProductDetail({
                     <p className="text-2xl font-light text-white number-glow">
                       200mg
                     </p>
-                    <p className="text-[10px] text-muted/30 mt-1 uppercase tracking-[0.2em]">
+                    <p className="text-[10px] text-white/45 mt-1 uppercase tracking-[0.2em]">
                       L-Theanine
                     </p>
                   </div>
@@ -965,10 +965,10 @@ export default function ProductDetail({
                     {ing.dose}
                   </span>
                 </div>
-                <p className="text-[10px] text-muted/25 font-mono tracking-wider mb-3">
+                <p className="text-[10px] text-white/40 font-mono tracking-wider mb-3">
                   {ing.formula}
                 </p>
-                <p className="text-[13px] text-muted/50 font-light leading-relaxed">
+                <p className="text-[13px] text-white/60 font-light leading-relaxed">
                   {ing.benefit}
                 </p>
 
@@ -984,7 +984,7 @@ export default function ProductDetail({
 
         {/* ── Reviews ────────────────────────────────────── */}
         <section className="mt-28 lg:mt-40">
-          <div className="section-divider mb-20 lg:mb-28" />
+          <div className="section-divider mb-10 sm:mb-14 lg:mb-28" />
 
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -999,7 +999,7 @@ export default function ProductDetail({
             >
               Reviews
             </p>
-            <h2 className="text-4xl sm:text-5xl lg:text-7xl font-extralight tracking-tight text-white">
+            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-light tracking-tight text-white">
               What people think.
             </h2>
           </motion.div>
@@ -1021,7 +1021,7 @@ export default function ProductDetail({
         {/* ── Related Products ────────────────────────────── */}
         {related.length > 0 && (
           <section className="mt-28 lg:mt-40">
-            <div className="section-divider mb-16 lg:mb-20" />
+            <div className="section-divider mb-10 sm:mb-14 lg:mb-20" />
 
             <motion.div
               initial={{ opacity: 0 }}
@@ -1030,12 +1030,12 @@ export default function ProductDetail({
               transition={{ duration: 0.6 }}
               className="flex items-center justify-between mb-12"
             >
-              <h2 className="text-3xl lg:text-4xl font-extralight tracking-tight text-white">
+              <h2 className="text-4xl lg:text-4xl font-light tracking-tight text-white">
                 You might also like
               </h2>
               <Link
                 href="/shop"
-                className="text-[11px] tracking-[0.2em] uppercase text-muted/40 hover:text-cyan transition-colors duration-300"
+                className="text-[11px] tracking-[0.2em] uppercase text-white/50 hover:text-cyan transition-colors duration-300"
               >
                 View All
               </Link>
@@ -1085,7 +1085,7 @@ export default function ProductDetail({
                             {p.name}
                           </h3>
                           {p.custom_fields?.tagline && (
-                            <p className="text-[12px] text-muted/35 mt-1 font-light">
+                            <p className="text-[12px] text-white/50 mt-1 font-light">
                               {p.custom_fields.tagline}
                             </p>
                           )}

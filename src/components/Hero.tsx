@@ -104,7 +104,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent z-[2]" />
       </div>
 
-      <div className="relative z-10 min-h-screen flex flex-col justify-end px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto pb-32 lg:pb-40">
+      <div className="relative z-10 min-h-screen flex flex-col justify-end px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto pb-20 sm:pb-28 lg:pb-40">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -120,7 +120,7 @@ export default function Hero() {
             Not Nicotine. Not Coffee. Better.
           </motion.p>
 
-          <h1 className="text-7xl sm:text-8xl lg:text-[160px] font-extralight tracking-tighter leading-[0.85] text-white mb-12">
+          <h1 className="text-7xl sm:text-8xl lg:text-[160px] font-light tracking-tighter leading-[0.85] text-white mb-8 sm:mb-12">
             Move
             <br />
             <span className="text-gradient font-light">Different.</span>
@@ -130,7 +130,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="text-muted text-xl lg:text-2xl font-light leading-relaxed max-w-xl mb-14"
+            className="text-white/70 text-lg sm:text-xl lg:text-2xl font-light leading-relaxed max-w-xl mb-10 sm:mb-14"
           >
             7 nootropics. One pouch. 6+ hours of dialed-in focus
             with zero crash and zero nicotine.
@@ -166,7 +166,7 @@ export default function Hero() {
           transition={{ delay: 1.5 }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
         >
-          <span className="text-[10px] tracking-[0.3em] uppercase text-muted/40">Scroll</span>
+          <span className="text-[10px] tracking-[0.3em] uppercase text-white/40">Scroll</span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}

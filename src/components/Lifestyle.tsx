@@ -60,8 +60,8 @@ function LazyVideo({ src, index }: { src: string; index: number }) {
 
 export default function Lifestyle() {
   return (
-    <section className="relative py-28 lg:py-40 overflow-hidden">
-      <div className="section-divider mb-28 lg:mb-40" />
+    <section className="relative py-14 sm:py-20 lg:py-36 overflow-hidden">
+      <div className="section-divider mb-14 sm:mb-20 lg:mb-32" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <motion.p
@@ -69,7 +69,7 @@ export default function Lifestyle() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-cyan text-[11px] tracking-[0.4em] uppercase mb-16 lg:mb-20"
+          className="text-cyan text-[12px] tracking-[0.4em] uppercase mb-10 lg:mb-16"
         >
           Who&apos;s on it
         </motion.p>
@@ -81,7 +81,7 @@ export default function Lifestyle() {
         </div>
       </div>
 
-      <div className="section-divider mt-28 lg:mt-40" />
+      <div className="section-divider mt-14 sm:mt-20 lg:mt-32" />
     </section>
   );
 }

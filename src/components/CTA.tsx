@@ -41,7 +41,7 @@ export default function CTA() {
   if (!featured) return null;
 
   return (
-    <section className="relative py-32 lg:py-48 overflow-hidden">
+    <section className="relative py-16 sm:py-24 lg:py-36 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <div className="relative overflow-hidden">
           <div className="absolute inset-0 bg-[#060606]">
@@ -115,13 +115,13 @@ export default function CTA() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
               >
-                <h2 className="text-5xl lg:text-7xl font-extralight tracking-tight text-white leading-[0.95] mb-10">
+                <h2 className="text-5xl sm:text-6xl lg:text-7xl font-light tracking-tight text-white leading-[0.95] mb-10">
                   Still thinking
                   <br />
                   <span className="text-gradient font-light">about it?</span>
                 </h2>
 
-                <p className="text-muted text-lg lg:text-xl font-light leading-relaxed mb-12 max-w-md">
+                <p className="text-white/70 text-lg lg:text-xl font-light leading-relaxed mb-12 max-w-md">
                   Free shipping over $30. 30-day money-back guarantee.
                   Subscribe & save 15%.
                 </p>
@@ -152,7 +152,7 @@ export default function CTA() {
                           <p className="text-white text-2xl lg:text-3xl font-light number-glow">
                             {s.val}
                           </p>
-                          <p className="text-[10px] text-muted/40 mt-2 uppercase tracking-[0.2em]">
+                          <p className="text-[10px] text-white/50 mt-2 uppercase tracking-[0.2em]">
                             {s.sub}
                           </p>
                         </div>

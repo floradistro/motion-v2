@@ -18,7 +18,7 @@ const CAPSULE_45 =
 
 export default function ProductGallery() {
   return (
-    <section className="relative py-24 lg:py-36 overflow-hidden">
+    <section className="relative py-14 sm:py-20 lg:py-36 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
         {/* Minimal label */}
         <motion.div
@@ -54,10 +54,10 @@ export default function ProductGallery() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
             <div className="absolute bottom-8 left-8">
-              <p className="text-white/90 text-2xl lg:text-3xl font-extralight tracking-tight">
+              <p className="text-white text-2xl lg:text-3xl font-light tracking-tight">
                 Nootropic Pouches
               </p>
-              <p className="text-white/40 text-[11px] tracking-[0.2em] uppercase mt-2">
+              <p className="text-white/60 text-[11px] tracking-[0.2em] uppercase mt-2">
                 Sublingual delivery
               </p>
             </div>
@@ -81,7 +81,7 @@ export default function ProductGallery() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6">
-                <p className="text-white/80 text-lg font-extralight">Limitless Capsules</p>
+                <p className="text-white text-lg font-light">Limitless Capsules</p>
               </div>
             </motion.div>
 
@@ -137,7 +137,7 @@ export default function ProductGallery() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-center text-muted/40 text-[12px] tracking-[0.3em] uppercase mt-10 lg:mt-14"
+          className="text-center text-white/50 text-[12px] tracking-[0.3em] uppercase mt-10 lg:mt-14"
         >
           Two formats &mdash; One mission
         </motion.p>

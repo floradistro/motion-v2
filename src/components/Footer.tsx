@@ -19,21 +19,21 @@ export default function Footer() {
                 className="object-contain h-10 w-auto"
               />
             </Link>
-            <p className="text-sm text-muted/60 font-light leading-relaxed max-w-xs">
+            <p className="text-sm text-white/60 font-light leading-relaxed max-w-xs">
               Nootropic pouches. Zero nicotine.
               Clean focus that actually works.
             </p>
           </div>
 
           <div>
-            <h4 className="text-[11px] tracking-[0.25em] uppercase text-muted/80 mb-8">
+            <h4 className="text-[11px] tracking-[0.25em] uppercase text-white/80 mb-8">
               Shop
             </h4>
             <ul className="space-y-4">
               <li>
                 <Link
                   href="/shop"
-                  className="text-sm text-muted/50 hover:text-white transition-colors duration-300 font-light"
+                  className="text-sm text-white/50 hover:text-white transition-colors duration-300 font-light"
                 >
                   All Products
                 </Link>
@@ -47,7 +47,7 @@ export default function Footer() {
                 <li key={item}>
                   <Link
                     href="/shop"
-                    className="text-sm text-muted/50 hover:text-white transition-colors duration-300 font-light"
+                    className="text-sm text-white/50 hover:text-white transition-colors duration-300 font-light"
                   >
                     {item}
                   </Link>
@@ -57,7 +57,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-[11px] tracking-[0.25em] uppercase text-muted/80 mb-8">
+            <h4 className="text-[11px] tracking-[0.25em] uppercase text-white/80 mb-8">
               Company
             </h4>
             <ul className="space-y-4">
@@ -65,7 +65,7 @@ export default function Footer() {
                 <li key={item}>
                   <Link
                     href={`/#${item.toLowerCase()}`}
-                    className="text-sm text-muted/50 hover:text-white transition-colors duration-300 font-light"
+                    className="text-sm text-white/50 hover:text-white transition-colors duration-300 font-light"
                   >
                     {item}
                   </Link>
@@ -75,7 +75,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-[11px] tracking-[0.25em] uppercase text-muted/80 mb-8">
+            <h4 className="text-[11px] tracking-[0.25em] uppercase text-white/80 mb-8">
               Support
             </h4>
             <ul className="space-y-4">
@@ -88,7 +88,7 @@ export default function Footer() {
                 <li key={item.label}>
                   <Link
                     href={item.href}
-                    className="text-sm text-muted/50 hover:text-white transition-colors duration-300 font-light"
+                    className="text-sm text-white/50 hover:text-white transition-colors duration-300 font-light"
                   >
                     {item.label}
                   </Link>
@@ -99,7 +99,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-20 pt-10 border-t border-white/[0.04] flex flex-col sm:flex-row items-center justify-between gap-6">
-          <p className="text-[12px] text-muted/30 font-light">
+          <p className="text-[12px] text-white/40 font-light">
             &copy; {new Date().getFullYear()} Motion Pouches. All rights
             reserved.
           </p>
@@ -113,7 +113,7 @@ export default function Footer() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="text-[12px] text-muted/30 hover:text-muted transition-colors font-light"
+                className="text-[12px] text-white/40 hover:text-white/70 transition-colors font-light"
               >
                 {item.label}
               </Link>

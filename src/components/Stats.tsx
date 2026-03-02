@@ -54,10 +54,10 @@ const stats = [
 
 export default function Stats() {
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden">
+    <section className="relative py-14 sm:py-20 lg:py-32 overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px] bg-[radial-gradient(ellipse,rgba(34,211,238,0.04)_0%,transparent_70%)] pointer-events-none" />
 
-      <div className="glow-line mb-24 lg:mb-32 opacity-40" />
+      <div className="glow-line mb-12 sm:mb-16 lg:mb-24 opacity-40" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 lg:gap-0">
@@ -79,7 +79,7 @@ export default function Stats() {
                 style={{ backgroundColor: stat.accent }}
               />
 
-              <div className="text-4xl sm:text-5xl lg:text-6xl font-extralight text-white tracking-tight mb-4 number-glow">
+              <div className="text-5xl sm:text-6xl lg:text-7xl font-light text-white tracking-tight mb-4 number-glow">
                 {typeof stat.value === "number" && stat.value > 100 ? (
                   <AnimatedNumber target={stat.value} suffix={stat.suffix} />
                 ) : (
@@ -89,7 +89,7 @@ export default function Stats() {
                   </>
                 )}
               </div>
-              <div className="text-[10px] tracking-[0.35em] uppercase text-muted/50 font-medium">
+              <div className="text-[11px] tracking-[0.35em] uppercase text-white/60 font-medium">
                 {stat.label}
               </div>
             </motion.div>
@@ -97,7 +97,7 @@ export default function Stats() {
         </div>
       </div>
 
-      <div className="glow-line mt-24 lg:mt-32 opacity-40" />
+      <div className="glow-line mt-12 sm:mt-16 lg:mt-24 opacity-40" />
     </section>
   );
 }

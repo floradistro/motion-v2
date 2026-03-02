@@ -15,7 +15,7 @@ const CAPSULE_BOTTLE =
 
 export default function Science() {
   return (
-    <section id="science" className="relative py-32 lg:py-48 bg-surface overflow-hidden">
+    <section id="science" className="relative py-16 sm:py-24 lg:py-36 bg-surface overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         {/* ── Hero: title + floating can ──────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center mb-28 lg:mb-36">
@@ -28,12 +28,12 @@ export default function Science() {
             <p className="text-cyan text-[13px] tracking-[0.4em] uppercase mb-6">
               What&apos;s Inside
             </p>
-            <h2 className="text-5xl sm:text-6xl lg:text-8xl font-extralight tracking-tight text-white leading-[0.95] mb-10">
+            <h2 className="text-6xl sm:text-7xl lg:text-8xl font-light tracking-tight text-white leading-[0.95] mb-10">
               No filler.
               <br />
               No BS.
             </h2>
-            <p className="text-muted text-lg lg:text-xl font-light leading-relaxed max-w-lg">
+            <p className="text-white/70 text-lg lg:text-xl font-light leading-relaxed max-w-lg">
               Every dose is on the label. Absorbed through the gum lining so it
               hits faster than anything you swallow.
             </p>
@@ -74,7 +74,7 @@ export default function Science() {
           className="flex items-center gap-6 mb-14 lg:mb-20"
         >
           <div className="h-[1px] w-12 bg-cyan/40" />
-          <p className="text-[12px] tracking-[0.35em] uppercase text-muted/50">
+          <p className="text-[12px] tracking-[0.35em] uppercase text-white/60">
             The Formula
           </p>
         </motion.div>
@@ -117,10 +117,10 @@ export default function Science() {
                   {ing.dose}
                 </span>
               </div>
-              <p className="text-[11px] text-muted/30 font-mono tracking-wider mb-4">
+              <p className="text-[11px] text-white/40 font-mono tracking-wider mb-4">
                 {ing.formula}
               </p>
-              <p className="text-[15px] text-muted/60 font-light leading-relaxed">
+              <p className="text-[15px] text-white/70 font-light leading-relaxed">
                 {ing.benefit}
               </p>
             </motion.div>
@@ -146,7 +146,7 @@ export default function Science() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 flex items-center gap-3">
               <div className="w-1.5 h-1.5 rounded-full bg-cyan" />
-              <span className="text-[11px] tracking-[0.2em] uppercase text-white/60">
+              <span className="text-[11px] tracking-[0.2em] uppercase text-white/80">
                 Nootropic Pouch
               </span>
             </div>
@@ -163,7 +163,7 @@ export default function Science() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 flex items-center gap-3">
               <div className="w-1.5 h-1.5 rounded-full bg-cyan" />
-              <span className="text-[11px] tracking-[0.2em] uppercase text-white/60">
+              <span className="text-[11px] tracking-[0.2em] uppercase text-white/80">
                 Limitless Capsules
               </span>
             </div>
@@ -196,14 +196,14 @@ export default function Science() {
             },
           ].map((s) => (
             <div key={s.step} className="flex items-start gap-6">
-              <span className="text-3xl lg:text-4xl font-mono text-cyan/20 mt-1">
+              <span className="text-3xl lg:text-4xl font-mono text-cyan/40 mt-1">
                 {s.step}
               </span>
               <div>
                 <h4 className="text-2xl lg:text-3xl font-light text-white mb-3">
                   {s.title}
                 </h4>
-                <p className="text-base text-muted/70 font-light leading-relaxed">
+                <p className="text-base text-white/70 font-light leading-relaxed">
                   {s.desc}
                 </p>
               </div>

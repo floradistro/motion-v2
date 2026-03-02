@@ -52,19 +52,19 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-10">
             <Link
               href="/shop"
-              className="text-[12px] tracking-[0.2em] uppercase text-muted hover:text-white transition-colors duration-300"
+              className="text-[12px] tracking-[0.2em] uppercase text-white/70 hover:text-white transition-colors duration-300"
             >
               Shop
             </Link>
             <Link
               href="/#science"
-              className="text-[12px] tracking-[0.2em] uppercase text-muted hover:text-white transition-colors duration-300"
+              className="text-[12px] tracking-[0.2em] uppercase text-white/70 hover:text-white transition-colors duration-300"
             >
               Science
             </Link>
             <Link
               href="/#about"
-              className="text-[12px] tracking-[0.2em] uppercase text-muted hover:text-white transition-colors duration-300"
+              className="text-[12px] tracking-[0.2em] uppercase text-white/70 hover:text-white transition-colors duration-300"
             >
               About
             </Link>
@@ -179,28 +179,28 @@ export default function Navbar() {
               <Link
                 href="/shop"
                 onClick={() => setMobileOpen(false)}
-                className="text-[15px] tracking-[0.15em] uppercase text-muted hover:text-white transition-colors"
+                className="text-[15px] tracking-[0.15em] uppercase text-white/70 hover:text-white transition-colors"
               >
                 Shop
               </Link>
               <Link
                 href="/#science"
                 onClick={() => setMobileOpen(false)}
-                className="text-[15px] tracking-[0.15em] uppercase text-muted hover:text-white transition-colors"
+                className="text-[15px] tracking-[0.15em] uppercase text-white/70 hover:text-white transition-colors"
               >
                 Science
               </Link>
               <Link
                 href="/#about"
                 onClick={() => setMobileOpen(false)}
-                className="text-[15px] tracking-[0.15em] uppercase text-muted hover:text-white transition-colors"
+                className="text-[15px] tracking-[0.15em] uppercase text-white/70 hover:text-white transition-colors"
               >
                 About
               </Link>
               <Link
                 href={isAuthed ? "/account" : "/account/login"}
                 onClick={() => setMobileOpen(false)}
-                className="text-[15px] tracking-[0.15em] uppercase text-muted hover:text-white transition-colors flex items-center gap-2"
+                className="text-[15px] tracking-[0.15em] uppercase text-white/70 hover:text-white transition-colors flex items-center gap-2"
               >
                 Account
                 {isAuthed && (
