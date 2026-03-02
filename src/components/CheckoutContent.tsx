@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/lib/cart-context";
+import { whaletools } from "@neowhale/telemetry";
 
 export default function CheckoutContent() {
   const { cart, clearCart } = useCart();
@@ -18,11 +19,32 @@ export default function CheckoutContent() {
 
   const isEmpty = !cart || cart.items.length === 0;
 
+  // Track begin_checkout when checkout page loads with a cart
+  useEffect(() => {
+    if (!cart || cart.items.length === 0) return;
+    whaletools.track("begin_checkout", {
+      cart_id: cart.id,
+      cart_total: cart.total,
+      cart_item_count: cart.item_count,
+      items: cart.items.map((i) => ({
+        product_id: i.product_id,
+        product_name: i.product_name,
+        quantity: i.quantity,
+        price: i.unit_price,
+      })),
+    });
+  }, [cart?.id]);
+
   const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!cart) return;
     setProcessing(true);
     setError("");
+
+    // Identify user by email before checkout
+    if (email) {
+      whaletools.identify(email, { email });
+    }
 
     try {
       const res = await fetch("/api/checkout", {
@@ -41,6 +63,22 @@ export default function CheckoutContent() {
       }
 
       const data = await res.json();
+
+      // Track successful purchase with full order data
+      whaletools.track("purchase", {
+        order_id: data.id,
+        order_number: data.order_number,
+        revenue: cart.total,
+        cart_id: cart.id,
+        cart_item_count: cart.item_count,
+        items: cart.items.map((i) => ({
+          product_id: i.product_id,
+          product_name: i.product_name,
+          quantity: i.quantity,
+          price: i.unit_price,
+        })),
+      });
+
       setOrder(data);
       clearCart();
     } catch {

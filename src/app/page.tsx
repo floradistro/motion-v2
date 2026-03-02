@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import ProductShowcase from "@/components/ProductShowcase";
 import Lifestyle from "@/components/Lifestyle";
+import About from "@/components/About";
 import ProductGallery from "@/components/ProductGallery";
 import Science from "@/components/Science";
 import Testimonials from "@/components/Testimonials";
@@ -26,6 +27,7 @@ export default async function Home() {
         <Stats />
         <ProductShowcase />
         <Lifestyle />
+        <About />
         <ProductGallery />
         <Science />
         <Testimonials />

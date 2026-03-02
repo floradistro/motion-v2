@@ -4,9 +4,18 @@ import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 const clips = [
+  // Veo 3.1 — product reveal (cinematic pouch tin opening)
+  "https://uaednwpxursknmwdeejn.supabase.co/storage/v1/object/public/store-media/ai-generated/58E62E61-75D1-4A79-8BED-3A3FB8F9400D/videos/e7937119-187a-4078-aa57-9af39f0964fe.mp4",
+  // Veo 3.1 — athlete running through city at dawn
+  "https://uaednwpxursknmwdeejn.supabase.co/storage/v1/object/public/store-media/ai-generated/58E62E61-75D1-4A79-8BED-3A3FB8F9400D/videos/a128bbce-abb2-49e0-8cca-0b7153d37696.mp4",
+  // Original lifestyle clips
   "https://uaednwpxursknmwdeejn.supabase.co/storage/v1/object/public/store-media/ai-generated/58E62E61-75D1-4A79-8BED-3A3FB8F9400D/videos/dfd441b4-0f32-4072-952c-46d91bcc0966.mp4",
+  // Veo 3.1 — water droplets on mint leaves macro
+  "https://uaednwpxursknmwdeejn.supabase.co/storage/v1/object/public/store-media/ai-generated/58E62E61-75D1-4A79-8BED-3A3FB8F9400D/videos/8f8fdea5-eb46-41a8-aec8-890bd530b255.mp4",
   "https://uaednwpxursknmwdeejn.supabase.co/storage/v1/object/public/store-media/ai-generated/58E62E61-75D1-4A79-8BED-3A3FB8F9400D/videos/69a4a27d-3b24-4793-8219-f107bed6ea88.mp4",
   "https://uaednwpxursknmwdeejn.supabase.co/storage/v1/object/public/store-media/ai-generated/58E62E61-75D1-4A79-8BED-3A3FB8F9400D/videos/bedad23c-6502-41f2-aa66-25f9a04c2164.mp4",
+  // Veo 3.1 — creative professional at desk
+  "https://uaednwpxursknmwdeejn.supabase.co/storage/v1/object/public/store-media/ai-generated/58E62E61-75D1-4A79-8BED-3A3FB8F9400D/videos/53cb3727-a542-4b4d-8d8b-130c13011f73.mp4",
   "https://uaednwpxursknmwdeejn.supabase.co/storage/v1/object/public/store-media/ai-generated/58E62E61-75D1-4A79-8BED-3A3FB8F9400D/videos/6aae26b2-d1c4-4cb4-8e2b-7582bc0730bd.mp4",
   "https://uaednwpxursknmwdeejn.supabase.co/storage/v1/object/public/store-media/ai-generated/58E62E61-75D1-4A79-8BED-3A3FB8F9400D/videos/9f2ea89c-4841-406c-afd0-56229287d030.mp4",
   "https://uaednwpxursknmwdeejn.supabase.co/storage/v1/object/public/store-media/ai-generated/58E62E61-75D1-4A79-8BED-3A3FB8F9400D/videos/e925783d-b63a-470f-b1e7-a280bc401fb4.mp4",
@@ -74,7 +83,7 @@ export default function Lifestyle() {
           Who&apos;s on it
         </motion.p>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 lg:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 lg:gap-4">
           {clips.map((src, i) => (
             <LazyVideo key={i} src={src} index={i} />
           ))}

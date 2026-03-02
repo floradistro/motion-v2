@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/lib/cart-context";
+import { whaletools } from "@neowhale/telemetry";
 import ModelViewer from "@/components/ModelViewer";
 import { Molecule, molecules, ingredients } from "@/lib/molecules";
 import ReviewCarousel from "@/components/ReviewCarousel";
@@ -105,6 +106,17 @@ export default function ProductDetail({
     modelUrl ? "3d" : "photos",
   );
   const { addItem, loading } = useCart();
+
+  // Track product view on mount
+  useEffect(() => {
+    whaletools.track("view_product", {
+      product_id: product.id,
+      product_name: product.name,
+      product_slug: product.slug,
+      sku: product.sku,
+      price: selectedTier.sale_price ?? selectedTier.price,
+    });
+  }, [product.id]);
 
   const handleAddToCart = async () => {
     await addItem(

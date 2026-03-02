@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { whaletools } from "@neowhale/telemetry";
 import type { Cart, CartItem } from "@/lib/api";
 
 const CART_KEY = "motion_cart_id";
@@ -164,6 +165,17 @@ export const useCartStore = create<CartStore>((set, get) => ({
       }
       // Gateway returns cart_item, not full cart — re-fetch
       await get().refreshCart();
+
+      // Track add_to_cart event
+      const cart = get().cart;
+      whaletools.track("add_to_cart", {
+        product_id: productId,
+        quantity,
+        tier,
+        cart_id: cartId,
+        cart_item_count: cart?.item_count ?? 0,
+        cart_total: cart?.total ?? 0,
+      });
     } finally {
       set({ loading: false });
     }
@@ -197,7 +209,15 @@ export const useCartStore = create<CartStore>((set, get) => ({
       const res = await fetch(`/api/cart/${cartId}/items/${itemId}`, {
         method: "DELETE",
       });
-      if (res.ok) await get().refreshCart();
+      if (res.ok) {
+        await get().refreshCart();
+        whaletools.track("remove_from_cart", {
+          item_id: itemId,
+          cart_id: cartId,
+          cart_item_count: get().cart?.item_count ?? 0,
+          cart_total: get().cart?.total ?? 0,
+        });
+      }
     } finally {
       set({ loading: false });
     }

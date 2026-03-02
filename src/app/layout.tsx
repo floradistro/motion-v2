@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { CartProvider } from "@/lib/cart-context";
 import AuthInitializer from "@/components/AuthInitializer";
+import TelemetryProvider from "@/components/TelemetryProvider";
 import PageTransition from "@/components/ui/PageTransition";
 import "./globals.css";
 
@@ -38,12 +39,14 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${inter.variable} antialiased`}>
-        <CartProvider>
-          <AuthInitializer />
-          <PageTransition>
-            {children}
-          </PageTransition>
-        </CartProvider>
+        <TelemetryProvider>
+          <CartProvider>
+            <AuthInitializer />
+            <PageTransition>
+              {children}
+            </PageTransition>
+          </CartProvider>
+        </TelemetryProvider>
       </body>
     </html>
   );

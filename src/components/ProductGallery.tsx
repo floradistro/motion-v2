@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const POUCH_CLOSEUP_1 =
-  "https://uaednwpxursknmwdeejn.supabase.co/storage/v1/object/public/product-images/products/pouches-all-flavors/58E62E61-75D1-4A79-8BED-3A3FB8F9400D/b16b8779-0f08-46b6-bfda-776eb4e93b74-freepik-pouch-closeup-1.png";
+  "https://uaednwpxursknmwdeejn.supabase.co/storage/v1/object/public/product-images/ai-generated/58E62E61-75D1-4A79-8BED-3A3FB8F9400D/standalone/d8be7ebe-664d-4fdc-b4cf-e9966b5992b8.png";
 const POUCH_CLOSEUP_2 =
   "https://uaednwpxursknmwdeejn.supabase.co/storage/v1/object/public/product-images/products/pouches-all-flavors/58E62E61-75D1-4A79-8BED-3A3FB8F9400D/ffc7b1b5-ce41-4320-9abb-be8f4b7b35e9-freepik-pouch-closeup-2.png";
 const POUCH_PILE =
@@ -103,6 +103,35 @@ export default function ProductGallery() {
             </motion.div>
           </div>
         </div>
+
+        {/* Full-width cinematic banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="relative aspect-[21/9] overflow-hidden group my-3"
+        >
+          <Image
+            src="https://uaednwpxursknmwdeejn.supabase.co/storage/v1/object/public/product-images/ai-generated/58E62E61-75D1-4A79-8BED-3A3FB8F9400D/standalone/17ac2d41-da2a-46b3-9fbf-54bd5c2f6672.png"
+            alt="Motion nootropic pouches — premium detail"
+            fill
+            sizes="100vw"
+            unoptimized
+            className="object-cover transition-transform duration-[1.2s] group-hover:scale-[1.02]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50" />
+          <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between">
+            <div>
+              <p className="text-white text-xl lg:text-2xl font-light tracking-tight">
+                Precision Crafted
+              </p>
+              <p className="text-white/60 text-[11px] tracking-[0.2em] uppercase mt-2">
+                Every detail matters
+              </p>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Bottom strip — three detail shots */}
         <div className="grid grid-cols-3 gap-3">
