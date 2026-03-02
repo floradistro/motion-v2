@@ -701,11 +701,11 @@ export default function ProductDetail({
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.25 }}
                   >
-                    <div className="divide-y divide-white/[0.04]">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {ingredients.map((ing) => (
-                        <div key={ing.name} className="flex items-center gap-4 py-4 first:pt-0 last:pb-0">
-                          {/* Mini molecule SVG */}
-                          <div className="w-10 h-10 flex-shrink-0 opacity-50">
+                        <div key={ing.name} className="p-5 bg-white/[0.02] border border-white/[0.04] rounded">
+                          {/* Large molecule SVG */}
+                          <div className="w-full h-24 opacity-70 mb-4">
                             <Molecule
                               data={molecules[ing.molecule]}
                               id={`tab-${ing.molecule}`}
@@ -713,18 +713,17 @@ export default function ProductDetail({
                               className="w-full h-full"
                             />
                           </div>
-                          {/* Name + formula */}
-                          <div className="flex-1 min-w-0">
+                          {/* Name + formula + dose */}
+                          <div>
                             <p className="text-[14px] text-white font-light">{ing.name}</p>
-                            <p className="text-[10px] text-white/40 font-mono tracking-wider">{ing.formula}</p>
+                            <p className="text-[10px] text-white/40 font-mono tracking-wider mt-1">{ing.formula}</p>
+                            <span
+                              className="text-[13px] tracking-[0.1em] font-mono mt-2 inline-block"
+                              style={{ color: `${accent}cc` }}
+                            >
+                              {ing.dose}
+                            </span>
                           </div>
-                          {/* Dose */}
-                          <span
-                            className="text-[13px] tracking-[0.1em] font-mono flex-shrink-0"
-                            style={{ color: `${accent}cc` }}
-                          >
-                            {ing.dose}
-                          </span>
                         </div>
                       ))}
                     </div>
@@ -773,7 +772,7 @@ export default function ProductDetail({
                     className="w-1 h-1 rounded-full"
                     style={{ backgroundColor: accent }}
                   />
-                  <h2 className="text-[11px] tracking-[0.3em] uppercase text-white/60 font-medium">
+                  <h2 className="text-[11px] tracking-[0.3em] uppercase text-white/75 font-medium">
                     Benefits
                   </h2>
                 </div>
@@ -804,7 +803,7 @@ export default function ProductDetail({
                           <h3 className="text-white text-[15px] font-medium mb-2 tracking-wide">
                             {b.title}
                           </h3>
-                          <p className="text-[13px] text-white/55 font-light leading-relaxed">
+                          <p className="text-[13px] text-white/80 font-light leading-relaxed">
                             {b.description}
                           </p>
                         </div>
@@ -873,7 +872,7 @@ export default function ProductDetail({
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative z-10 w-full max-w-[320px] lg:max-w-[400px]"
+                  className="relative z-10 w-full max-w-[400px] lg:max-w-[500px]"
                 >
                   <Molecule
                     data={molecules.caffeine}
@@ -896,7 +895,7 @@ export default function ProductDetail({
                   >
                     Primary
                   </span>
-                  <span className="text-[11px] text-white/45 font-mono tracking-wider">
+                  <span className="text-[11px] text-white/60 font-mono tracking-wider">
                     C\u2088H\u2081\u2080N\u2084O\u2082
                   </span>
                 </div>
@@ -904,7 +903,7 @@ export default function ProductDetail({
                 <h3 className="text-4xl lg:text-4xl font-light text-white tracking-tight mb-3">
                   Caffeine + L-Theanine
                 </h3>
-                <p className="text-[14px] text-white/50 font-light mb-8 leading-relaxed max-w-md">
+                <p className="text-[14px] text-white/70 font-light mb-8 leading-relaxed max-w-md">
                   The 1:2 ratio that started it all. Clean energy without the
                   crash. Caffeine locks you in while Theanine smooths out the
                   edges.
@@ -915,7 +914,7 @@ export default function ProductDetail({
                     <p className="text-2xl font-light text-white number-glow">
                       100mg
                     </p>
-                    <p className="text-[10px] text-white/45 mt-1 uppercase tracking-[0.2em]">
+                    <p className="text-[10px] text-white/60 mt-1 uppercase tracking-[0.2em]">
                       Caffeine
                     </p>
                   </div>
@@ -924,7 +923,7 @@ export default function ProductDetail({
                     <p className="text-2xl font-light text-white number-glow">
                       200mg
                     </p>
-                    <p className="text-[10px] text-white/45 mt-1 uppercase tracking-[0.2em]">
+                    <p className="text-[10px] text-white/60 mt-1 uppercase tracking-[0.2em]">
                       L-Theanine
                     </p>
                   </div>
@@ -945,7 +944,7 @@ export default function ProductDetail({
                 className="bg-background p-8 lg:p-10 group hover:bg-surface transition-colors duration-500 relative overflow-hidden"
               >
                 {/* Background decorative molecule */}
-                <div className="absolute -top-2 -right-2 w-[140px] h-[120px] lg:w-[160px] lg:h-[130px] opacity-[0.025] group-hover:opacity-[0.06] transition-opacity duration-700 pointer-events-none">
+                <div className="absolute -top-2 -right-2 w-[200px] h-[180px] lg:w-[240px] lg:h-[200px] opacity-[0.04] group-hover:opacity-[0.1] transition-opacity duration-700 pointer-events-none">
                   <Molecule
                     data={molecules[ing.molecule]}
                     id={`pd-bg-${ing.molecule}`}
@@ -954,8 +953,8 @@ export default function ProductDetail({
                 </div>
 
                 {/* Inline molecule */}
-                <div className="h-16 lg:h-20 mb-5 flex items-center">
-                  <div className="opacity-40 group-hover:opacity-80 transition-opacity duration-500 w-full max-w-[140px] lg:max-w-[180px] h-full">
+                <div className="h-28 lg:h-36 mb-5 flex items-center">
+                  <div className="opacity-60 group-hover:opacity-100 transition-opacity duration-500 w-full max-w-none h-full">
                     <Molecule
                       data={molecules[ing.molecule]}
                       id={`pd-${ing.molecule}`}

@@ -12,7 +12,7 @@ export default function CartContent() {
 
   return (
     <main className="min-h-screen bg-background pt-32 lg:pt-40 pb-24">
-      <div className="max-w-4xl mx-auto px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -20,7 +20,7 @@ export default function CartContent() {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <nav className="flex items-center gap-2 text-[12px] text-muted/40 mb-8">
+          <nav className="flex items-center gap-2 text-[12px] text-white/50 mb-8">
             <Link href="/" className="hover:text-white transition-colors">
               Home
             </Link>
@@ -29,13 +29,13 @@ export default function CartContent() {
               Shop
             </Link>
             <span>/</span>
-            <span className="text-muted/60">Cart</span>
+            <span className="text-white/70">Cart</span>
           </nav>
-          <h1 className="text-4xl sm:text-5xl font-extralight tracking-tight text-white">
+          <h1 className="text-4xl sm:text-5xl font-light tracking-tight text-white">
             Your Cart
           </h1>
           {!isEmpty && (
-            <p className="text-sm text-muted/40 mt-2">
+            <p className="text-sm text-white/50 mt-2">
               {itemCount} {itemCount === 1 ? "item" : "items"}
             </p>
           )}
@@ -50,7 +50,7 @@ export default function CartContent() {
           >
             <div className="w-20 h-20 mx-auto mb-8 border border-white/[0.06] flex items-center justify-center">
               <svg
-                className="w-8 h-8 text-muted/20"
+                className="w-8 h-8 text-white/30"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -66,7 +66,7 @@ export default function CartContent() {
             <h2 className="text-2xl font-light text-white mb-3">
               Your Mission Awaits.
             </h2>
-            <p className="text-muted/40 font-light mb-10 max-w-md mx-auto">
+            <p className="text-white/50 font-light mb-10 max-w-md mx-auto">
               Don&apos;t settle for less. Explore our nootropics and unlock your
               true cognitive potential.
             </p>
@@ -99,7 +99,7 @@ export default function CartContent() {
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <div className="text-[11px] text-muted/30 uppercase tracking-wider">
+                      <div className="text-[11px] text-white/40 uppercase tracking-wider">
                         {item.tier_label}
                       </div>
                     )}
@@ -109,7 +109,7 @@ export default function CartContent() {
                     <h3 className="text-white font-light text-lg truncate">
                       {item.product_name}
                     </h3>
-                    <p className="text-[12px] text-muted/40 mt-1">
+                    <p className="text-[12px] text-white/50 mt-1">
                       SKU: {item.sku}
                       {item.tier_label && ` / ${item.tier_label}`}
                     </p>
@@ -124,7 +124,7 @@ export default function CartContent() {
                               : removeItem(item.id)
                           }
                           disabled={loading}
-                          className="w-9 h-9 flex items-center justify-center text-muted/50 hover:text-white transition-colors"
+                          className="w-9 h-9 flex items-center justify-center text-white/60 hover:text-white transition-colors"
                         >
                           -
                         </button>
@@ -136,7 +136,7 @@ export default function CartContent() {
                             updateItem(item.id, item.quantity + 1)
                           }
                           disabled={loading}
-                          className="w-9 h-9 flex items-center justify-center text-muted/50 hover:text-white transition-colors"
+                          className="w-9 h-9 flex items-center justify-center text-white/60 hover:text-white transition-colors"
                         >
                           +
                         </button>
@@ -145,7 +145,7 @@ export default function CartContent() {
                       <button
                         onClick={() => removeItem(item.id)}
                         disabled={loading}
-                        className="text-[11px] tracking-wider uppercase text-muted/30 hover:text-red-400 transition-colors"
+                        className="text-[11px] tracking-wider uppercase text-white/40 hover:text-red-400 transition-colors"
                       >
                         Remove
                       </button>
@@ -156,7 +156,7 @@ export default function CartContent() {
                     <p className="text-xl font-light text-white">
                       ${item.line_total.toFixed(2)}
                     </p>
-                    <p className="text-[12px] text-muted/30 mt-1">
+                    <p className="text-[12px] text-white/40 mt-1">
                       ${item.unit_price.toFixed(2)} each
                     </p>
                   </div>
@@ -172,34 +172,34 @@ export default function CartContent() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="sticky top-32 p-8 bg-[#0a0a0a] border border-white/[0.04]"
               >
-                <h3 className="text-[11px] tracking-[0.25em] uppercase text-muted/50 mb-8">
+                <h3 className="text-[11px] tracking-[0.25em] uppercase text-white/60 mb-8">
                   Order Summary
                 </h3>
 
                 <div className="space-y-4 mb-8">
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted/50">Subtotal</span>
+                    <span className="text-white/60">Subtotal</span>
                     <span className="text-white">
                       ${cart!.subtotal.toFixed(2)}
                     </span>
                   </div>
                   {cart!.discount_amount > 0 && (
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted/50">Discount</span>
+                      <span className="text-white/60">Discount</span>
                       <span className="text-cyan">
                         -${cart!.discount_amount.toFixed(2)}
                       </span>
                     </div>
                   )}
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted/50">Shipping</span>
-                    <span className="text-muted/50">
+                    <span className="text-white/60">Shipping</span>
+                    <span className="text-white/60">
                       ${cart!.shipping_amount.toFixed(2)}
                     </span>
                   </div>
                   {cart!.tax_amount > 0 && (
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted/50">Tax</span>
+                      <span className="text-white/60">Tax</span>
                       <span className="text-white">
                         ${cart!.tax_amount.toFixed(2)}
                       </span>
@@ -225,7 +225,7 @@ export default function CartContent() {
 
                 <Link
                   href="/shop"
-                  className="block w-full py-4 mt-3 text-[12px] tracking-[0.2em] uppercase text-center text-muted/40 hover:text-white transition-colors"
+                  className="block w-full py-4 mt-3 text-[12px] tracking-[0.2em] uppercase text-center text-white/50 hover:text-white transition-colors"
                 >
                   Continue Shopping
                 </Link>

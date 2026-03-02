@@ -49,7 +49,7 @@ export function Molecule({
       case "Co": return 5;
       case "P": return 4;
       case "N": case "O": return 3.2;
-      default: return 2;
+      default: return 2.5;
     }
   };
 
@@ -65,7 +65,7 @@ export function Molecule({
         {data.nodes.map(([, , el], i) =>
           glows(el) ? (
             <radialGradient key={`rg${i}`} id={`${uid}-glow-${i}`} cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor={color(el)} stopOpacity="0.18" />
+              <stop offset="0%" stopColor={color(el)} stopOpacity="0.25" />
               <stop offset="100%" stopColor={color(el)} stopOpacity="0" />
             </radialGradient>
           ) : null,
@@ -80,7 +80,7 @@ export function Molecule({
             key={`ring${ri}`}
             points={points}
             fill={accentOverride || "#22d3ee"}
-            opacity={0.03}
+            opacity={0.06}
           />
         );
       })}
@@ -106,14 +106,14 @@ export function Molecule({
               <line
                 x1={x1 + nx} y1={y1 + ny}
                 x2={x2 + nx} y2={y2 + ny}
-                stroke="rgba(255,255,255,0.12)"
-                strokeWidth="1"
+                stroke="rgba(255,255,255,0.22)"
+                strokeWidth="1.5"
               />
               <line
                 x1={x1 - nx} y1={y1 - ny}
                 x2={x2 - nx} y2={y2 - ny}
-                stroke="rgba(255,255,255,0.12)"
-                strokeWidth="1"
+                stroke="rgba(255,255,255,0.22)"
+                strokeWidth="1.5"
               />
             </g>
           );
@@ -124,8 +124,8 @@ export function Molecule({
             key={`b${i}`}
             x1={x1} y1={y1}
             x2={x2} y2={y2}
-            stroke="rgba(255,255,255,0.12)"
-            strokeWidth="1"
+            stroke="rgba(255,255,255,0.22)"
+            strokeWidth="1.5"
           />
         );
       })}
@@ -152,7 +152,7 @@ export function Molecule({
           cy={y}
           r={r(el)}
           fill={color(el)}
-          opacity={glows(el) ? 0.9 : isSpecial(el) ? 0.7 : 0.45}
+          opacity={glows(el) ? 0.9 : isSpecial(el) ? 0.7 : 0.6}
         />
       ))}
 
@@ -169,7 +169,7 @@ export function Molecule({
             fontSize={el === "Co" ? 5 : 4}
             fontFamily="system-ui, sans-serif"
             fontWeight="600"
-            opacity={0.7}
+            opacity={0.85}
           >
             {el}
           </text>

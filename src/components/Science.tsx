@@ -91,7 +91,7 @@ export default function Science() {
               className="bg-surface p-8 lg:p-12 group hover:bg-surface-light transition-colors duration-500 relative overflow-hidden"
             >
               {/* Molecule SVG — background decorative element */}
-              <div className="absolute -top-2 -right-2 w-[140px] h-[120px] lg:w-[180px] lg:h-[150px] opacity-[0.035] group-hover:opacity-[0.08] transition-opacity duration-700 pointer-events-none">
+              <div className="absolute -top-2 -right-2 w-[220px] h-[180px] lg:w-[280px] lg:h-[220px] opacity-[0.06] group-hover:opacity-[0.15] transition-opacity duration-700 pointer-events-none">
                 <Molecule
                   data={molecules[ing.molecule]}
                   className="w-full h-full"
@@ -99,8 +99,8 @@ export default function Science() {
               </div>
 
               {/* Molecule SVG — visible inline */}
-              <div className="h-20 lg:h-24 mb-6 flex items-center">
-                <div className="opacity-50 group-hover:opacity-90 transition-opacity duration-500 w-full max-w-[160px] lg:max-w-[200px] h-full">
+              <div className="h-32 lg:h-40 mb-6 flex items-center">
+                <div className="opacity-70 group-hover:opacity-100 transition-opacity duration-500 w-full max-w-none h-full">
                   <Molecule
                     data={molecules[ing.molecule]}
                     className="w-full h-full"

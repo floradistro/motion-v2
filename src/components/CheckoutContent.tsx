@@ -92,7 +92,7 @@ export default function CheckoutContent() {
   if (order) {
     return (
       <main className="min-h-screen bg-background pt-32 lg:pt-40 pb-24">
-        <div className="max-w-2xl mx-auto px-6 lg:px-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -114,13 +114,13 @@ export default function CheckoutContent() {
                 />
               </svg>
             </div>
-            <h1 className="text-4xl sm:text-5xl font-extralight tracking-tight text-white mb-4">
+            <h1 className="text-4xl sm:text-5xl font-light tracking-tight text-white mb-4">
               Order Confirmed
             </h1>
-            <p className="text-muted/50 font-light mb-2">
+            <p className="text-white/60 font-light mb-2">
               Order #{order.order_number}
             </p>
-            <p className="text-muted/40 font-light mb-12 max-w-md mx-auto">
+            <p className="text-white/50 font-light mb-12 max-w-md mx-auto">
               Thank you for your order. You&apos;ll receive a confirmation
               email shortly.
             </p>
@@ -139,11 +139,11 @@ export default function CheckoutContent() {
   if (isEmpty) {
     return (
       <main className="min-h-screen bg-background pt-32 lg:pt-40 pb-24">
-        <div className="max-w-2xl mx-auto px-6 lg:px-12 text-center py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 text-center py-20">
           <h1 className="text-3xl font-light text-white mb-4">
             Nothing to check out
           </h1>
-          <p className="text-muted/40 font-light mb-8">
+          <p className="text-white/50 font-light mb-8">
             Add some products to your cart first.
           </p>
           <Link
@@ -159,7 +159,7 @@ export default function CheckoutContent() {
 
   return (
     <main className="min-h-screen bg-background pt-32 lg:pt-40 pb-24">
-      <div className="max-w-5xl mx-auto px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -167,7 +167,7 @@ export default function CheckoutContent() {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <nav className="flex items-center gap-2 text-[12px] text-muted/40 mb-8">
+          <nav className="flex items-center gap-2 text-[12px] text-white/50 mb-8">
             <Link href="/shop" className="hover:text-white transition-colors">
               Shop
             </Link>
@@ -176,12 +176,12 @@ export default function CheckoutContent() {
               Cart
             </Link>
             <span>/</span>
-            <span className="text-muted/60">Checkout</span>
+            <span className="text-white/70">Checkout</span>
           </nav>
-          <h1 className="text-4xl sm:text-5xl font-extralight tracking-tight text-white">
+          <h1 className="text-4xl sm:text-5xl font-light tracking-tight text-white">
             Secure Your Upgrade.
           </h1>
-          <p className="text-muted/40 font-light mt-2">
+          <p className="text-white/50 font-light mt-2">
             Your information is 100% secure. Fast, encrypted checkout for total
             peace of mind.
           </p>
@@ -197,7 +197,7 @@ export default function CheckoutContent() {
           >
             <form onSubmit={handleCheckout} className="space-y-8">
               <div>
-                <label className="block text-[11px] tracking-[0.2em] uppercase text-muted/50 mb-3">
+                <label className="block text-[11px] tracking-[0.2em] uppercase text-white/60 mb-3">
                   Email Address
                 </label>
                 <input
@@ -206,9 +206,9 @@ export default function CheckoutContent() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
                   required
-                  className="w-full bg-[#0a0a0a] border border-white/[0.06] text-white text-sm px-5 py-4 placeholder:text-muted/20 focus:outline-none focus:border-white/20 transition-colors"
+                  className="w-full bg-[#0a0a0a] border border-white/[0.06] text-white text-sm px-5 py-4 placeholder:text-white/30 focus:outline-none focus:border-white/20 transition-colors"
                 />
-                <p className="text-[11px] text-muted/30 mt-2">
+                <p className="text-[11px] text-white/40 mt-2">
                   Order confirmation will be sent to this email.
                 </p>
               </div>
@@ -237,7 +237,7 @@ export default function CheckoutContent() {
             className="lg:col-span-2"
           >
             <div className="sticky top-32 p-8 bg-[#0a0a0a] border border-white/[0.04]">
-              <h3 className="text-[11px] tracking-[0.25em] uppercase text-muted/50 mb-6">
+              <h3 className="text-[11px] tracking-[0.25em] uppercase text-white/60 mb-6">
                 Order Review
               </h3>
 
@@ -255,7 +255,7 @@ export default function CheckoutContent() {
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
-                          <svg className="w-4 h-4 text-muted/20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+                          <svg className="w-4 h-4 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                           </svg>
                         </div>
@@ -266,7 +266,7 @@ export default function CheckoutContent() {
                         <p className="text-white font-light truncate">
                           {item.product_name}
                         </p>
-                        <p className="text-[12px] text-muted/30">
+                        <p className="text-[12px] text-white/40">
                           {item.tier_label} x {item.quantity}
                         </p>
                       </div>
@@ -280,14 +280,14 @@ export default function CheckoutContent() {
 
               <div className="border-t border-white/[0.06] pt-6 space-y-3">
                 <div className="flex justify-between text-sm">
-                  <span className="text-muted/50">Subtotal</span>
+                  <span className="text-white/60">Subtotal</span>
                   <span className="text-white">
                     ${cart.subtotal.toFixed(2)}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-muted/50">Shipping</span>
-                  <span className="text-muted/50">
+                  <span className="text-white/60">Shipping</span>
+                  <span className="text-white/60">
                     ${cart.shipping_amount.toFixed(2)}
                   </span>
                 </div>
