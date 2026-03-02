@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -16,6 +17,7 @@ interface OrderItem {
   unit_price: number;
   line_total: number;
   tier_label?: string;
+  featured_image?: string;
 }
 
 interface OrderDetail {
@@ -208,9 +210,26 @@ export default function OrderDetailPage() {
               {order.items?.map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between py-3 border-b border-white/[0.04] last:border-0"
+                  className="flex items-center gap-4 py-3 border-b border-white/[0.04] last:border-0"
                 >
-                  <div>
+                  <div className="w-14 h-14 rounded-xl bg-white/[0.04] flex-shrink-0 overflow-hidden border border-white/[0.04]">
+                    {item.featured_image ? (
+                      <Image
+                        src={item.featured_image}
+                        alt={item.product_name}
+                        width={56}
+                        height={56}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <svg className="w-5 h-5 text-muted/20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
                     <p className="text-sm font-light text-white">
                       {item.product_name}
                     </p>
@@ -219,7 +238,7 @@ export default function OrderDetailPage() {
                       {item.quantity} @ ${item.unit_price?.toFixed(2)}
                     </p>
                   </div>
-                  <p className="text-sm font-light text-white">
+                  <p className="text-sm font-light text-white flex-shrink-0">
                     ${item.line_total?.toFixed(2)}
                   </p>
                 </div>

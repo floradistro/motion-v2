@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/lib/cart-context";
 
@@ -88,10 +89,20 @@ export default function CartContent() {
                   transition={{ duration: 0.4, delay: i * 0.05 }}
                   className="flex gap-6 p-6 bg-[#0a0a0a] border border-white/[0.04]"
                 >
-                  <div className="w-20 h-20 bg-[#070707] flex-shrink-0 flex items-center justify-center border border-white/[0.04]">
-                    <div className="text-[11px] text-muted/30 uppercase tracking-wider">
-                      {item.tier_label}
-                    </div>
+                  <div className="w-20 h-20 bg-[#070707] flex-shrink-0 flex items-center justify-center border border-white/[0.04] overflow-hidden">
+                    {item.featured_image ? (
+                      <Image
+                        src={item.featured_image}
+                        alt={item.product_name}
+                        width={80}
+                        height={80}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="text-[11px] text-muted/30 uppercase tracking-wider">
+                        {item.tier_label}
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex-1 min-w-0">

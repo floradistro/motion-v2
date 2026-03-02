@@ -5,11 +5,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/lib/cart-context";
+import { getAccent } from "@/lib/design-system";
 import type { Product } from "@/lib/api";
-
-function getAccent(product: Product): string {
-  return product.custom_fields?.flavor_color || "#22d3ee";
-}
 
 function AddToCartButton({ product }: { product: Product }) {
   const { addItem, loading } = useCart();

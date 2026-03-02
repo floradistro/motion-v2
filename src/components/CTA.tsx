@@ -3,9 +3,11 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import type { Product } from "@/lib/api";
+import { useProductStore } from "@/stores/product-store";
 
-export default function CTA({ products }: { products: Product[] }) {
+export default function CTA() {
+  const products = useProductStore((s) => s.products);
+
   const pouch = products.find(
     (p) =>
       p.name.toLowerCase().includes("pouch") ||
@@ -36,21 +38,20 @@ export default function CTA({ products }: { products: Product[] }) {
   if (nicotineMatch) stats.push({ val: "0", sub: "nicotine" });
   stats.push({ val: "Free", sub: "shipping $30+" });
 
+  if (!featured) return null;
+
   return (
     <section className="relative py-32 lg:py-48 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <div className="relative overflow-hidden">
-          {/* Aurora background */}
           <div className="absolute inset-0 bg-[#060606]">
             <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(34,211,238,0.06)_0%,transparent_60%)] aurora-orb" />
             <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(52,211,153,0.05)_0%,transparent_60%)] aurora-orb-2" />
           </div>
 
-          {/* Subtle border */}
           <div className="absolute inset-0 border border-white/[0.04] pointer-events-none" />
 
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 min-h-[650px] lg:min-h-[750px]">
-            {/* Left — Product display */}
             <div className="relative flex items-center justify-center py-20 lg:py-0">
               <motion.div
                 initial={{ opacity: 0, scale: 0.85 }}
@@ -73,6 +74,7 @@ export default function CTA({ products }: { products: Product[] }) {
                       alt={featured.name}
                       width={420}
                       height={420}
+                      sizes="(max-width: 640px) 240px, (max-width: 1024px) 320px, 400px"
                       className="object-contain w-[240px] sm:w-[320px] lg:w-[400px]"
                       style={{
                         filter: `drop-shadow(0 40px 80px ${featured.custom_fields?.flavor_color || "#22d3ee"}30)`,
@@ -95,6 +97,7 @@ export default function CTA({ products }: { products: Product[] }) {
                       alt={secondary.name}
                       width={340}
                       height={420}
+                      sizes="(max-width: 640px) 200px, (max-width: 1024px) 260px, 320px"
                       className="object-contain w-[200px] sm:w-[260px] lg:w-[320px]"
                       style={{
                         filter: `drop-shadow(0 40px 80px ${secondary.custom_fields?.flavor_color || "#22d3ee"}25)`,
@@ -105,8 +108,7 @@ export default function CTA({ products }: { products: Product[] }) {
               </motion.div>
             </div>
 
-            {/* Right — Copy */}
-            <div className="flex items-center px-10 lg:px-20 py-20 lg:py-0">
+            <div className="flex items-center px-6 sm:px-10 lg:px-20 py-20 lg:py-0">
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}

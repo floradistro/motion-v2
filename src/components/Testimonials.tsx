@@ -2,81 +2,12 @@
 
 import { useRef, useMemo, useState, useEffect, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
+import { useReviewStore } from "@/stores/review-store";
+import { getAccentFromReview, getProductLabel, timeAgo } from "@/lib/design-system";
+import Stars from "@/components/ui/Stars";
+import Avatar from "@/components/ui/Avatar";
+import Badge from "@/components/ui/Badge";
 import type { ProductReview } from "@/lib/api";
-
-/* ─── Helpers ────────────────────────────────────────── */
-
-function getAccent(review: ProductReview): string {
-  if (review.flavor_color) return review.flavor_color;
-  const name = (review.product_name || "").toLowerCase();
-  if (name.includes("mint")) return "#34d399";
-  if (name.includes("mango")) return "#fbbf24";
-  if (name.includes("blue") || name.includes("raspberry")) return "#60a5fa";
-  return "#22d3ee";
-}
-
-function getProductLabel(review: ProductReview): string {
-  const name = (review.product_name || "").toLowerCase();
-  if (name.includes("mint")) return "Mint";
-  if (name.includes("mango")) return "Mango";
-  if (name.includes("blue") || name.includes("raspberry")) return "Blue Razz";
-  if (name.includes("capsule") || name.includes("limitless")) return "Capsules";
-  return "MOTION";
-}
-
-function timeAgo(dateStr: string): string {
-  const days = Math.floor((Date.now() - new Date(dateStr).getTime()) / 86400000);
-  if (days < 1) return "Today";
-  if (days === 1) return "Yesterday";
-  if (days < 7) return `${days} days ago`;
-  if (days < 14) return "1 week ago";
-  if (days < 30) return `${Math.floor(days / 7)} weeks ago`;
-  if (days < 60) return "1 month ago";
-  return `${Math.floor(days / 30)} months ago`;
-}
-
-/* ─── Stars ──────────────────────────────────────────── */
-
-function Stars({ count, accent }: { count: number; accent: string }) {
-  return (
-    <div className="flex gap-0.5">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <svg
-          key={i}
-          className="w-3.5 h-3.5"
-          style={{ color: i < count ? accent : "rgba(255,255,255,0.08)" }}
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-      ))}
-    </div>
-  );
-}
-
-/* ─── Avatar ─────────────────────────────────────────── */
-
-function Avatar({ name, accent }: { name: string; accent: string }) {
-  const initials = name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .slice(0, 2);
-
-  return (
-    <div
-      className="w-10 h-10 rounded-full flex items-center justify-center text-[13px] font-semibold tracking-wide flex-shrink-0"
-      style={{
-        background: `linear-gradient(135deg, ${accent}30, ${accent}10)`,
-        color: accent,
-        border: `1px solid ${accent}25`,
-      }}
-    >
-      {initials}
-    </div>
-  );
-}
 
 /* ─── Aggregate Rating ───────────────────────────────── */
 
@@ -109,7 +40,7 @@ function AggregateRating({ reviews }: { reviews: ProductReview[] }) {
           {avg}
         </span>
         <div className="flex flex-col gap-1">
-          <Stars count={Math.round(Number(avg))} accent="#22d3ee" />
+          <Stars rating={Math.round(Number(avg))} accent="#22d3ee" />
           <span className="text-[11px] text-muted/40 tracking-wider">
             out of 5
           </span>
@@ -191,7 +122,7 @@ function ReviewCard({
   index: number;
   large?: boolean;
 }) {
-  const accent = getAccent(review);
+  const accent = getAccentFromReview(review);
   const reviewerName = review.metadata?.reviewer_name || "Anonymous";
   const reviewerRole = review.metadata?.reviewer_role || "";
 
@@ -211,7 +142,7 @@ function ReviewCard({
     >
       <div
         className={`relative h-full border border-white/[0.04] hover:border-white/[0.1] transition-all duration-700 card-shimmer overflow-hidden ${
-          large ? "p-10 lg:p-14" : "p-8 lg:p-10"
+          large ? "p-8 sm:p-10 lg:p-14" : "p-6 sm:p-8 lg:p-10"
         }`}
         style={{
           background: large
@@ -219,19 +150,16 @@ function ReviewCard({
             : "rgba(255,255,255,0.015)",
         }}
       >
-        {/* Top accent line on hover */}
         <div
           className="absolute top-0 left-0 h-[1px] w-0 group-hover:w-full transition-all duration-700 ease-out"
           style={{ backgroundColor: accent }}
         />
 
-        {/* Corner glow */}
         <div
           className="absolute -top-20 -right-20 w-40 h-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none blur-3xl"
           style={{ backgroundColor: `${accent}06` }}
         />
 
-        {/* Large decorative quote mark */}
         <div
           className="absolute -top-2 -left-1 text-[100px] font-serif leading-none pointer-events-none select-none"
           style={{ color: accent, opacity: large ? 0.05 : 0.03 }}
@@ -239,31 +167,13 @@ function ReviewCard({
           &ldquo;
         </div>
 
-        {/* Stars + verified */}
         <div className="flex items-center gap-3 mb-5 relative">
-          <Stars count={review.rating} accent={accent} />
+          <Stars rating={review.rating} accent={accent} />
           {review.verified_purchase && (
-            <span className="flex items-center gap-1 text-[10px] text-muted/25 tracking-wider uppercase">
-              <svg
-                className="w-3 h-3"
-                style={{ color: accent }}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2.5}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
-                />
-              </svg>
-              Verified
-            </span>
+            <Badge accent={accent} variant="verified" />
           )}
         </div>
 
-        {/* Title */}
         {review.title && (
           <h4
             className={`font-medium text-white/95 mb-3 leading-snug ${
@@ -274,7 +184,6 @@ function ReviewCard({
           </h4>
         )}
 
-        {/* Quote */}
         <p
           className={`relative font-extralight text-white/70 leading-relaxed mb-8 ${
             large
@@ -285,7 +194,6 @@ function ReviewCard({
           {review.review_text}
         </p>
 
-        {/* Author row */}
         <div className="flex items-center justify-between mt-auto relative">
           <div className="flex items-center gap-3">
             <Avatar name={reviewerName} accent={accent} />
@@ -302,23 +210,15 @@ function ReviewCard({
           </div>
 
           <div className="flex flex-col items-end gap-1.5">
-            <span
-              className="text-[10px] tracking-[0.15em] uppercase px-3 py-1.5 border"
-              style={{
-                borderColor: `${accent}18`,
-                color: `${accent}70`,
-                backgroundColor: `${accent}06`,
-              }}
-            >
+            <Badge accent={accent}>
               {getProductLabel(review)}
-            </span>
+            </Badge>
             <span className="text-[10px] text-muted/20">
               {timeAgo(review.created_at)}
             </span>
           </div>
         </div>
 
-        {/* Helpful count */}
         {review.helpful_count > 0 && (
           <div className="mt-5 pt-5 border-t border-white/[0.03] flex items-center gap-2">
             <svg
@@ -380,11 +280,9 @@ function ReviewCarousel({
 
   return (
     <div className="relative group/carousel">
-      {/* Fade edges */}
       <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#050505] to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#050505] to-transparent z-10 pointer-events-none" />
 
-      {/* Nav buttons */}
       {canScrollLeft && (
         <button
           onClick={() => scroll("left")}
@@ -408,7 +306,7 @@ function ReviewCarousel({
 
       <div
         ref={scrollRef}
-        className="flex gap-5 overflow-x-auto scrollbar-hide px-1 py-1"
+        className="flex gap-3 sm:gap-5 overflow-x-auto scrollbar-hide px-1 py-1"
       >
         {reviews.map((review, i) => (
           <ReviewCard
@@ -443,7 +341,7 @@ function FilterTabs({
       if (existing) {
         existing.count++;
       } else {
-        seen.set(label, { label, accent: getAccent(r), count: 1 });
+        seen.set(label, { label, accent: getAccentFromReview(r), count: 1 });
       }
     }
     return Array.from(seen.values());
@@ -485,11 +383,8 @@ function FilterTabs({
 
 /* ─── Main Component ─────────────────────────────────── */
 
-export default function Testimonials({
-  reviews,
-}: {
-  reviews: ProductReview[];
-}) {
+export default function Testimonials() {
+  const reviews = useReviewStore((s) => s.allReviews);
   const [filter, setFilter] = useState(FILTER_ALL);
 
   if (reviews.length === 0) return null;
@@ -499,7 +394,6 @@ export default function Testimonials({
       ? reviews
       : reviews.filter((r) => getProductLabel(r) === filter);
 
-  // Split: top 3 as featured grid, rest as carousel
   const featured = filtered.slice(0, 3);
   const rest = filtered.slice(3);
 
@@ -507,12 +401,10 @@ export default function Testimonials({
     <section className="relative py-32 lg:py-48 overflow-hidden">
       <div className="section-divider mb-28 lg:mb-40" />
 
-      {/* Ambient background */}
       <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(34,211,238,0.03)_0%,transparent_60%)] aurora-orb pointer-events-none" />
       <div className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(96,165,250,0.025)_0%,transparent_60%)] aurora-orb-2 pointer-events-none" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
-        {/* Header */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -528,28 +420,20 @@ export default function Testimonials({
           </h2>
         </motion.div>
 
-        {/* Aggregate Rating */}
         <AggregateRating reviews={reviews} />
-
-        {/* Marquee */}
         <MarqueeStrip reviews={reviews} />
-
-        {/* Filter Tabs */}
         <FilterTabs reviews={reviews} active={filter} onSelect={setFilter} />
 
-        {/* Featured Grid — top 3 reviews */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 mb-8">
           {featured.map((review, i) => (
             <ReviewCard key={review.id} review={review} index={i} large />
           ))}
         </div>
 
-        {/* Scrollable Carousel — remaining reviews */}
         {rest.length > 0 && (
           <ReviewCarousel reviews={rest} startIndex={3} />
         )}
 
-        {/* Bottom line */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

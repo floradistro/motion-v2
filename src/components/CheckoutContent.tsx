@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/lib/cart-context";
 
@@ -204,18 +205,37 @@ export default function CheckoutContent() {
 
               <div className="space-y-4 mb-8">
                 {cart.items.map((item) => (
-                  <div key={item.id} className="flex justify-between text-sm">
-                    <div>
-                      <p className="text-white font-light">
-                        {item.product_name}
-                      </p>
-                      <p className="text-[12px] text-muted/30">
-                        {item.tier_label} x {item.quantity}
-                      </p>
+                  <div key={item.id} className="flex gap-3 text-sm">
+                    <div className="w-12 h-12 bg-[#070707] flex-shrink-0 border border-white/[0.04] overflow-hidden">
+                      {item.featured_image ? (
+                        <Image
+                          src={item.featured_image}
+                          alt={item.product_name}
+                          width={48}
+                          height={48}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <svg className="w-4 h-4 text-muted/20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                          </svg>
+                        </div>
+                      )}
                     </div>
-                    <span className="text-white font-light">
-                      ${item.line_total.toFixed(2)}
-                    </span>
+                    <div className="flex-1 min-w-0 flex justify-between">
+                      <div>
+                        <p className="text-white font-light truncate">
+                          {item.product_name}
+                        </p>
+                        <p className="text-[12px] text-muted/30">
+                          {item.tier_label} x {item.quantity}
+                        </p>
+                      </div>
+                      <span className="text-white font-light flex-shrink-0 ml-3">
+                        ${item.line_total.toFixed(2)}
+                      </span>
+                    </div>
                   </div>
                 ))}
               </div>

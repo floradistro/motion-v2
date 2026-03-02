@@ -8,13 +8,8 @@ import { useCart } from "@/lib/cart-context";
 import ModelViewer from "@/components/ModelViewer";
 import { Molecule, molecules, ingredients } from "@/lib/molecules";
 import ReviewCarousel from "@/components/ReviewCarousel";
+import { getAccent } from "@/lib/design-system";
 import type { Product, PricingTier } from "@/lib/api";
-
-/* ─── Helpers ────────────────────────────────────────── */
-
-function getAccent(product: Product): string {
-  return product.custom_fields?.flavor_color || "#22d3ee";
-}
 
 function parseBenefits(
   product: Product,

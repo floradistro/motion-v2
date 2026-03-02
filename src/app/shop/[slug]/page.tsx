@@ -4,6 +4,7 @@ import { getProducts, getProductBySlug } from "@/lib/api";
 import ProductDetail from "@/components/ProductDetail";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import StoreHydrator from "@/components/StoreHydrator";
 
 export async function generateStaticParams() {
   const products = await getProducts();
@@ -48,6 +49,7 @@ export default async function ProductPage({
 
   return (
     <>
+      <StoreHydrator products={allProducts} />
       <Navbar />
       <ProductDetail product={product} related={related} />
       <Footer />

@@ -5,12 +5,10 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/lib/cart-context";
+import { useProductStore } from "@/stores/product-store";
+import { getAccent } from "@/lib/design-system";
 import ModelViewer from "@/components/ModelViewer";
 import type { Product } from "@/lib/api";
-
-function getAccent(product: Product): string {
-  return product.custom_fields?.flavor_color || "#22d3ee";
-}
 
 function AddToCartButton({ product }: { product: Product }) {
   const { addItem, loading } = useCart();
@@ -42,14 +40,12 @@ function AddToCartButton({ product }: { product: Product }) {
   );
 }
 
-export default function ProductShowcase({
-  products,
-}: {
-  products: Product[];
-}) {
+export default function ProductShowcase() {
+  const products = useProductStore((s) => s.products);
+
   return (
     <section id="shop" className="relative py-32 lg:py-48">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -65,7 +61,7 @@ export default function ProductShowcase({
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
           {products.map((product, i) => {
             const accent = getAccent(product);
             const tier = product.pricing_data?.tiers?.[0];
@@ -124,6 +120,7 @@ export default function ProductShowcase({
                           alt={product.name}
                           width={500}
                           height={600}
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                           className="object-contain relative z-10 w-full max-h-[450px]"
                           style={{
                             filter: `drop-shadow(0 30px 60px ${accent}20)`,
@@ -133,7 +130,7 @@ export default function ProductShowcase({
                     )}
                   </div>
 
-                  <div className="p-8">
+                  <div className="p-6 sm:p-8">
                     <h3 className="text-xl font-light text-white tracking-wide mb-2">
                       {product.name}
                     </h3>

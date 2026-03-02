@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { CartProvider } from "@/lib/cart-context";
 import AuthInitializer from "@/components/AuthInitializer";
+import PageTransition from "@/components/ui/PageTransition";
 import "./globals.css";
 
 const inter = Inter({
@@ -39,7 +40,9 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased`}>
         <CartProvider>
           <AuthInitializer />
-          {children}
+          <PageTransition>
+            {children}
+          </PageTransition>
         </CartProvider>
       </body>
     </html>

@@ -19,7 +19,7 @@ const CAPSULE_45 =
 export default function ProductGallery() {
   return (
     <section className="relative py-24 lg:py-36 overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
         {/* Minimal label */}
         <motion.div
           initial={{ opacity: 0 }}

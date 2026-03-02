@@ -3,6 +3,7 @@ import { getProducts } from "@/lib/api";
 import ShopContent from "@/components/ShopContent";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import StoreHydrator from "@/components/StoreHydrator";
 
 export const metadata: Metadata = {
   title: "Shop | MOTION",
@@ -15,8 +16,9 @@ export default async function ShopPage() {
 
   return (
     <>
+      <StoreHydrator products={products} />
       <Navbar />
-      <ShopContent products={products} />
+      <ShopContent />
       <Footer />
     </>
   );

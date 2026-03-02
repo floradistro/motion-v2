@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 
 function AnimatedNumber({
   target,
@@ -14,23 +14,28 @@ function AnimatedNumber({
   const isInView = useInView(ref, { once: true });
   const [count, setCount] = useState(0);
 
-  useEffect(() => {
+  const animate = useCallback(() => {
     if (!isInView) return;
     const duration = 2200;
-    const steps = 70;
-    const increment = target / steps;
-    let current = 0;
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= target) {
-        setCount(target);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(current));
-      }
-    }, duration / steps);
-    return () => clearInterval(timer);
+    const startTime = performance.now();
+
+    function tick(now: number) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic for smooth deceleration
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(eased * target);
+      setCount(current);
+      if (progress < 1) requestAnimationFrame(tick);
+      else setCount(target);
+    }
+
+    requestAnimationFrame(tick);
   }, [isInView, target]);
+
+  useEffect(() => {
+    animate();
+  }, [animate]);
 
   return (
     <span ref={ref}>
@@ -50,13 +55,12 @@ const stats = [
 export default function Stats() {
   return (
     <section className="relative py-24 lg:py-32 overflow-hidden">
-      {/* Ambient glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px] bg-[radial-gradient(ellipse,rgba(34,211,238,0.04)_0%,transparent_70%)] pointer-events-none" />
 
       <div className="glow-line mb-24 lg:mb-32 opacity-40" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 lg:gap-0">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -70,13 +74,12 @@ export default function Stats() {
               }}
               className="text-center lg:border-r lg:last:border-r-0 border-white/[0.04] group"
             >
-              {/* Subtle accent dot */}
               <div
                 className="w-1.5 h-1.5 rounded-full mx-auto mb-6 opacity-60 group-hover:opacity-100 transition-opacity duration-500"
                 style={{ backgroundColor: stat.accent }}
               />
 
-              <div className="text-5xl lg:text-6xl font-extralight text-white tracking-tight mb-4 number-glow">
+              <div className="text-4xl sm:text-5xl lg:text-6xl font-extralight text-white tracking-tight mb-4 number-glow">
                 {typeof stat.value === "number" && stat.value > 100 ? (
                   <AnimatedNumber target={stat.value} suffix={stat.suffix} />
                 ) : (

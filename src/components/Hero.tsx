@@ -19,8 +19,26 @@ const CLIPS = [
 
 export default function Hero() {
   const [current, setCurrent] = useState(0);
+  const [loaded, setLoaded] = useState<Set<number>>(new Set([0]));
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Preload current + next video only
+  const preloadNext = useCallback((idx: number) => {
+    const next = (idx + 1) % CLIPS.length;
+    setLoaded((prev) => {
+      if (prev.has(next)) return prev;
+      const s = new Set(prev);
+      s.add(next);
+      return s;
+    });
+    // Start loading next video
+    const nextVid = videoRefs.current[next];
+    if (nextVid && !nextVid.src) {
+      nextVid.src = CLIPS[next];
+      nextVid.load();
+    }
+  }, []);
 
   const advance = useCallback(() => {
     setCurrent((prev) => {
@@ -30,9 +48,11 @@ export default function Hero() {
         nextVid.currentTime = 0;
         nextVid.play().catch(() => {});
       }
+      // Preload the one after next
+      preloadNext(next);
       return next;
     });
-  }, []);
+  }, [preloadNext]);
 
   useEffect(() => {
     timerRef.current = setInterval(advance, CUT_DURATION * 1000);
@@ -41,15 +61,16 @@ export default function Hero() {
     };
   }, [advance]);
 
+  // Load & play first video, preload second
   useEffect(() => {
-    CLIPS.forEach((_, i) => {
-      const vid = videoRefs.current[i];
-      if (vid) {
-        vid.load();
-        if (i === 0) vid.play().catch(() => {});
-      }
-    });
-  }, []);
+    const first = videoRefs.current[0];
+    if (first) {
+      first.src = CLIPS[0];
+      first.load();
+      first.play().catch(() => {});
+    }
+    preloadNext(0);
+  }, [preloadNext]);
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-black">
@@ -58,10 +79,11 @@ export default function Hero() {
           <video
             key={i}
             ref={(el) => { videoRefs.current[i] = el; }}
-            src={src}
+            // Only set src for loaded videos (lazy loading)
+            src={loaded.has(i) ? src : undefined}
             muted
             playsInline
-            preload="auto"
+            preload={i === 0 ? "auto" : "none"}
             className="absolute inset-0 w-full h-full object-cover"
             style={{
               opacity: i === current ? 1 : 0,
@@ -82,7 +104,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-transparent z-[2]" />
       </div>
 
-      <div className="relative z-10 min-h-screen flex flex-col justify-end px-6 lg:px-12 max-w-7xl mx-auto pb-32 lg:pb-40">
+      <div className="relative z-10 min-h-screen flex flex-col justify-end px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto pb-32 lg:pb-40">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -118,11 +140,11 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
-            className="flex flex-wrap gap-5"
+            className="flex flex-wrap gap-4 sm:gap-5"
           >
             <a
               href="#shop"
-              className="group inline-flex items-center gap-3 bg-white text-black px-12 py-5 text-[14px] tracking-[0.15em] uppercase font-medium hover:bg-cyan transition-all duration-300"
+              className="group inline-flex items-center gap-3 bg-white text-black px-10 sm:px-12 py-4 sm:py-5 text-[13px] sm:text-[14px] tracking-[0.15em] uppercase font-medium hover:bg-cyan transition-all duration-300"
             >
               Get Yours
               <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -131,7 +153,7 @@ export default function Hero() {
             </a>
             <a
               href="#science"
-              className="inline-flex items-center gap-3 border border-white/20 text-white px-12 py-5 text-[14px] tracking-[0.15em] uppercase font-light hover:border-cyan/50 hover:text-cyan transition-all duration-300"
+              className="inline-flex items-center gap-3 border border-white/20 text-white px-10 sm:px-12 py-4 sm:py-5 text-[13px] sm:text-[14px] tracking-[0.15em] uppercase font-light hover:border-cyan/50 hover:text-cyan transition-all duration-300"
             >
               What&apos;s Inside
             </a>

@@ -4,16 +4,13 @@ import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import type { Product } from "@/lib/api";
+import { useProductStore } from "@/stores/product-store";
+import { getAccent } from "@/lib/design-system";
 
-function getAccent(product: Product): string {
-  return product.custom_fields?.flavor_color || "#22d3ee";
-}
-
-export default function ShopContent({ products }: { products: Product[] }) {
+export default function ShopContent() {
+  const products = useProductStore((s) => s.products);
   const [filter, setFilter] = useState("all");
 
-  // Derive categories from product data — no hardcoding
   const categories = useMemo(() => {
     const seen = new Map<string, { slug: string; name: string; count: number }>();
     for (const p of products) {
@@ -41,7 +38,7 @@ export default function ShopContent({ products }: { products: Product[] }) {
   return (
     <main className="min-h-screen bg-background pt-32 lg:pt-40 pb-24">
       {/* Hero */}
-      <section className="max-w-7xl mx-auto px-6 lg:px-12 mb-20 lg:mb-28">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 mb-20 lg:mb-28">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -60,7 +57,6 @@ export default function ShopContent({ products }: { products: Product[] }) {
           </p>
         </motion.div>
 
-        {/* Category filters — derived from product data */}
         {categories.length > 1 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -94,7 +90,6 @@ export default function ShopContent({ products }: { products: Product[] }) {
           </motion.div>
         )}
 
-        {/* Count */}
         <motion.p
           key={filter}
           initial={{ opacity: 0 }}
@@ -106,8 +101,8 @@ export default function ShopContent({ products }: { products: Product[] }) {
       </section>
 
       {/* Product Grid */}
-      <section className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
           {filtered.map((product, i) => {
             const accent = getAccent(product);
             const tier = product.pricing_data?.tiers?.[0];
@@ -127,7 +122,7 @@ export default function ShopContent({ products }: { products: Product[] }) {
                 >
                   {product.featured && (
                     <div
-                      className="absolute top-5 right-5 z-10 px-3 py-1.5 text-[10px] tracking-[0.15em] uppercase font-medium"
+                      className="absolute top-4 right-4 sm:top-5 sm:right-5 z-10 px-2.5 py-1 sm:px-3 sm:py-1.5 text-[9px] sm:text-[10px] tracking-[0.15em] uppercase font-medium"
                       style={{
                         backgroundColor: `${accent}15`,
                         color: accent,
@@ -139,12 +134,12 @@ export default function ShopContent({ products }: { products: Product[] }) {
                   )}
 
                   {product.custom_fields?.badge && (
-                    <div className="absolute top-5 left-5 z-10 px-3 py-1.5 text-[10px] tracking-[0.15em] uppercase text-muted/60 bg-white/[0.04] border border-white/[0.06]">
+                    <div className="absolute top-4 left-4 sm:top-5 sm:left-5 z-10 px-2.5 py-1 sm:px-3 sm:py-1.5 text-[9px] sm:text-[10px] tracking-[0.15em] uppercase text-muted/60 bg-white/[0.04] border border-white/[0.06]">
                       {product.custom_fields.badge}
                     </div>
                   )}
 
-                  <div className="relative aspect-[3/4] bg-[#070707] flex items-center justify-center p-6 overflow-hidden">
+                  <div className="relative aspect-[3/4] bg-[#070707] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
                     <div
                       className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700"
                       style={{
@@ -157,6 +152,7 @@ export default function ShopContent({ products }: { products: Product[] }) {
                         alt={product.name}
                         width={400}
                         height={500}
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                         className="object-contain w-full max-h-[380px]"
                         style={{
                           filter: `drop-shadow(0 25px 50px ${accent}25)`,
@@ -165,50 +161,50 @@ export default function ShopContent({ products }: { products: Product[] }) {
                     </div>
                   </div>
 
-                  <div className="p-7">
+                  <div className="p-4 sm:p-7">
                     {product.custom_fields?.flavor && (
                       <p
-                        className="text-[11px] tracking-[0.2em] uppercase mb-2 font-medium"
+                        className="text-[10px] sm:text-[11px] tracking-[0.2em] uppercase mb-2 font-medium"
                         style={{ color: accent }}
                       >
                         {product.custom_fields.flavor}
                       </p>
                     )}
-                    <h3 className="text-lg font-light text-white tracking-wide mb-2">
+                    <h3 className="text-base sm:text-lg font-light text-white tracking-wide mb-1 sm:mb-2">
                       {product.name}
                     </h3>
-                    <p className="text-[13px] text-muted/50 leading-relaxed line-clamp-2 mb-5">
+                    <p className="text-[12px] sm:text-[13px] text-muted/50 leading-relaxed line-clamp-2 mb-4 sm:mb-5 hidden sm:block">
                       {product.custom_fields?.tagline ||
                         product.short_description}
                     </p>
 
-                    <div className="flex items-baseline gap-3 mb-5">
+                    <div className="flex items-baseline gap-2 sm:gap-3 mb-4 sm:mb-5">
                       {tier && (
-                        <span className="text-2xl font-light text-white">
+                        <span className="text-xl sm:text-2xl font-light text-white">
                           ${tier.sale_price ?? tier.price}
                         </span>
                       )}
                       {tier?.sale_price && tier?.regular_price && tier.regular_price > tier.sale_price ? (
-                        <span className="text-sm text-muted/30 line-through">
+                        <span className="text-xs sm:text-sm text-muted/30 line-through">
                           ${tier.regular_price}
                         </span>
                       ) : (
                         comparePrice &&
                         tier &&
                         comparePrice > tier.price && (
-                          <span className="text-sm text-muted/30 line-through">
+                          <span className="text-xs sm:text-sm text-muted/30 line-through">
                             ${comparePrice}
                           </span>
                         )
                       )}
                       {bundleTier && (
-                        <span className="text-[11px] tracking-wider text-cyan/60 uppercase ml-auto">
+                        <span className="text-[10px] sm:text-[11px] tracking-wider text-cyan/60 uppercase ml-auto hidden sm:inline">
                           {bundleTier.label} ${bundleTier.sale_price ?? bundleTier.price}
                         </span>
                       )}
                     </div>
 
-                    <div className="w-full py-3.5 text-[12px] tracking-[0.2em] uppercase bg-white/[0.04] border border-white/10 text-white text-center group-hover:bg-white group-hover:text-black transition-all duration-300 font-medium">
+                    <div className="w-full py-3 sm:py-3.5 text-[11px] sm:text-[12px] tracking-[0.2em] uppercase bg-white/[0.04] border border-white/10 text-white text-center group-hover:bg-white group-hover:text-black transition-all duration-300 font-medium">
                       View Product
                     </div>
                   </div>

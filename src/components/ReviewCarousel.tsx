@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useAuthStore } from "@/hooks/use-auth";
+import Stars from "@/components/ui/Stars";
 import Link from "next/link";
 
 /* ─── Types ──────────────────────────────────────────── */
@@ -21,47 +22,6 @@ interface Review {
     reviewer_role?: string;
   };
   created_at: string;
-}
-
-/* ─── Star display ───────────────────────────────────── */
-
-function Stars({
-  rating,
-  accent,
-  size = 14,
-  interactive,
-  onRate,
-}: {
-  rating: number;
-  accent: string;
-  size?: number;
-  interactive?: boolean;
-  onRate?: (r: number) => void;
-}) {
-  return (
-    <div className="flex gap-0.5">
-      {[1, 2, 3, 4, 5].map((n) => (
-        <button
-          key={n}
-          type="button"
-          disabled={!interactive}
-          onClick={() => onRate?.(n)}
-          className={interactive ? "cursor-pointer hover:scale-110 transition-transform" : "cursor-default"}
-        >
-          <svg
-            width={size}
-            height={size}
-            viewBox="0 0 24 24"
-            fill={n <= rating ? accent : "none"}
-            stroke={n <= rating ? accent : "rgba(255,255,255,0.15)"}
-            strokeWidth="1.5"
-          >
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-          </svg>
-        </button>
-      ))}
-    </div>
-  );
 }
 
 /* ─── Review Card ────────────────────────────────────── */

@@ -16,7 +16,7 @@ const CAPSULE_BOTTLE =
 export default function Science() {
   return (
     <section id="science" className="relative py-32 lg:py-48 bg-surface overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         {/* ── Hero: title + floating can ──────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center mb-28 lg:mb-36">
           <motion.div

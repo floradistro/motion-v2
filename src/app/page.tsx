@@ -8,6 +8,7 @@ import Science from "@/components/Science";
 import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import StoreHydrator from "@/components/StoreHydrator";
 import { getProducts, getProductReviews } from "@/lib/api";
 
 export default async function Home() {
@@ -18,16 +19,17 @@ export default async function Home() {
 
   return (
     <>
+      <StoreHydrator products={products} reviews={reviews} />
       <Navbar />
       <main>
         <Hero />
         <Stats />
-        <ProductShowcase products={products} />
+        <ProductShowcase />
         <Lifestyle />
         <ProductGallery />
         <Science />
-        <Testimonials reviews={reviews} />
-        <CTA products={products} />
+        <Testimonials />
+        <CTA />
       </main>
       <Footer />
     </>
